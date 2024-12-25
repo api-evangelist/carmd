@@ -18,9 +18,6 @@ image: >-
   https://kinlane-productions2.s3.amazonaws.com/apis-json-icons/vehicle-api-carmd.png
 created: 2024/3/30
 modified: '2024-12-22'
-overlays:
-  - url: overlays/apis-io-search.yml
-    type: APIs.io Search
 description: >-
   CarMD's new vehicle API is a user-centric and affordable way to access API
   services for your vehicle. Our vehicle data API provides a wide range of

@@ -34,7 +34,7 @@ apis:
 common:
   - type: Website
     url: https://www.carmd.com/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.carmd.com/privacy-policy
 maintainers:
   - FN: Kin Lane

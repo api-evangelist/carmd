@@ -32,6 +32,8 @@ apis:
       CarMD's vehicle API provides access to code definitions, vehicle images,
       and diagnostics for predicting upcoming vehicle issues.
 common:
+  - type: DomainSecurity
+    url: security/carmd-domain-security.yml
   - type: Website
     url: https://www.carmd.com/
   - type: PrivacyPolicy

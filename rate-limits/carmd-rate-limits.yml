@@ -3,89 +3,62 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: CarMD
 providerId: carmd
+generated: '2026-08-27'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-27'
+method: searched
+source: https://carmd.com/llms.txt (fetched 2026-08-27) + live probes of https://carmd.com/api/ucp/mcp and https://carmd.com/api/2026-04/graphql.json
 tags:
   - Automobiles
   - Cars
   - Diagnostics
   - Vehicles
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the CarMD API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: >-
+  Rate limiting CarMD actually documents. The only published statement is in the storefront's llms.txt,
+  which says the UCP MCP endpoint is rate-limited per IP and that agents should back off on 429. No numeric
+  ceiling, window, burst or RateLimit-* header is published for any CarMD surface, and none was observed on
+  the responses captured during this run. The CarMD Vehicle API's limits could not be checked at all —
+  api.carmd.com refused connections.
+limit_count: 1
+limits:
+  - name: UCP MCP per-IP throttle
+    surface: CarMD Universal Commerce (UCP) MCP Server
+    endpoint: https://carmd.com/api/ucp/mcp
+    scope: per-ip
+    metric: requests
+    limit: null
+    burst: null
+    window: null
+    status_on_exhaustion: 429
+    documented: true
+    source: https://carmd.com/llms.txt
+    quote: 'Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429 responses.'
+    note: Published as a behavioural rule with no number attached; the ceiling is not disclosed.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  observed: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appeared on any 200 response captured from
+    carmd.com during this run.
+cost_signal:
+  surface: CarMD Storefront GraphQL
+  field: extensions.cost.requestedQueryCost
+  observed: true
+  example: 'a 2-product query returned {"cost":{"requestedQueryCost":5}}'
+  note: >-
+    A per-query cost figure is returned on every GraphQL response. It is a consumption signal rather than a
+    published limit — the bucket size and restore rate are not disclosed on this endpoint.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - CarMD Vehicle API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - CarMD Vehicle API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - CarMD Vehicle API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - CarMD Vehicle API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - CarMD Vehicle API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+note: >-
+  This file previously carried five invented per-tier limits (10/100/1000 rpm, 1,000 and 100,000
+  requests/month) written by the 2026-05-04 bulk sweep. None of those numbers came from CarMD; they have
+  been removed in favour of the one limit the provider genuinely publishes.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,110 @@
+generated: '2026-08-27'
+method: probed
+source: live GET probes of /.well-known/* on every CarMD host named in apis.yml and on the storefront
+provider: CarMD
+providerId: carmd
+description: >-
+  Well-known document probe for CarMD. The consumer storefront at carmd.com runs on Shopify and serves a
+  live OpenID Connect / OAuth 2.0 authorization-server metadata document plus a Universal Commerce Protocol
+  (UCP) merchant profile. The CarMD developer API host, api.carmd.com, refused TCP connections on both 80
+  and 443 from two independent vantage points at probe time, so no well-known document could be read there.
+hosts:
+  - host: carmd.com
+    note: >-
+      Primary CarMD domain, Shopify-hosted storefront. GraphQL `shop { name }` on this host returns "CarMD"
+      and primaryDomain https://carmd.com, confirming the host belongs to this company.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: carmd-openid-configuration.json
+        note: >-
+          Shopify customer-accounts OIDC discovery. issuer https://shopify.com/authentication/93440671876;
+          scopes_supported includes customer-account-api:full and customer-account-mcp-api:full.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: carmd-oauth-authorization-server.json
+        note: Byte-identical to the openid-configuration document (RFC 8414 alias).
+      - path: /.well-known/ucp
+        status: 200
+        file: carmd-ucp.json
+        note: >-
+          Universal Commerce Protocol merchant profile, version 2026-04-08 (also serving 2026-01-23).
+          Declares an MCP transport endpoint and Google Pay / Shop Pay / card payment handlers with
+          merchant_name "CarMD" and merchant_origin carmd.com.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/mcp.json
+        status: 404
+  - host: api.carmd.com
+    note: >-
+      The CarMD developer API host, linked from the carmd.com footer as "CarMD API"
+      (https://api.carmd.com/member/). DNS resolves to 54.86.119.234 but TCP ports 80 and 443 are closed;
+      curl reported "Connection timed out" and an independent fetcher reported ECONNREFUSED. No document
+      could be retrieved.
+    documents:
+      - path: /.well-known/security.txt
+        status: 0
+        note: '<no response> — TCP connection refused/timed out'
+      - path: /.well-known/openid-configuration
+        status: 0
+        note: '<no response> — TCP connection refused/timed out'
+      - path: /.well-known/oauth-authorization-server
+        status: 0
+        note: '<no response> — TCP connection refused/timed out'
+      - path: /.well-known/api-catalog
+        status: 0
+        note: '<no response> — TCP connection refused/timed out'
+      - path: /.well-known/agent-card.json
+        status: 0
+        note: '<no response> — TCP connection refused/timed out'
+  - host: proscan.carmd.com
+    note: Host answers, but every path (including /) returns an IIS 404 "Not Found".
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: app.carmd.com
+    note: Host answers with empty-bodied 404s on every probed path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+findings:
+  security_txt: false
+  api_catalog: false
+  agent_card: false
+  openid_configuration: true
+  oauth_authorization_server: true
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

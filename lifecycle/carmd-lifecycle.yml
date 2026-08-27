@@ -1,0 +1,80 @@
+generated: '2026-08-27'
+method: probed
+source: >-
+  https://carmd.com/.well-known/ucp, https://carmd.com/api/2026-04/graphql.json, TCP/HTTP probes of
+  api.carmd.com and proscan.carmd.com, and https://www.carmd.com/api/ — all 2026-08-27
+provider: CarMD
+providerId: carmd
+description: >-
+  Lifecycle posture for CarMD's API surfaces. The headline finding is not a policy but an observation: the
+  developer API host CarMD still links to from its own footer does not answer, while a new agent-commerce
+  surface has appeared on the main domain.
+versioning:
+  - surface: CarMD UCP Commerce MCP
+    scheme: dated protocol version
+    current: '2026-04-08'
+    previous_still_served: ['2026-01-23']
+    declared_at: https://carmd.com/.well-known/ucp
+    note: >-
+      The discovery document lists both versions with per-version profile URLs, which is a concrete
+      multi-version support statement rather than a promise.
+  - surface: CarMD Storefront GraphQL
+    scheme: dated version in the request path
+    current: '2026-04'
+    path_form: /api/{version}/graphql.json
+    discovery: 'the publicApiVersions query field enumerates supported versions'
+  - surface: CarMD Vehicle API (CarScan)
+    scheme: 'path version (v3 generation referenced in indexed documentation)'
+    current: unverified
+    note: Could not be confirmed — the host refused connections.
+deprecation:
+  policy_published: false
+  sunset_header: unverified
+  deprecation_header: unverified
+  note: >-
+    CarMD publishes no deprecation policy. The Storefront GraphQL schema does carry @deprecated field
+    markers (a machine-readable deprecation signal at the field level), but there is no stated support
+    window or sunset schedule. No Deprecation pointer is emitted.
+status_page:
+  published: false
+  url: null
+  note: >-
+    No status page was found on any CarMD property, and none is linked from the site footer. No StatusPage
+    pointer is emitted.
+sla:
+  published: false
+availability_observations:
+  - host: api.carmd.com
+    date: '2026-08-27'
+    observation: >-
+      DNS resolves to 54.86.119.234; TCP 80 and 443 both closed. curl: "Connection timed out after 8001
+      milliseconds". An independent fetcher on a different network returned ECONNREFUSED on
+      54.86.119.234:443. This host is still linked from the carmd.com footer as "CarMD API"
+      (https://api.carmd.com/member/) and is the documented home of the CarScan API documentation.
+    http_status: 0
+  - host: proscan.carmd.com
+    date: '2026-08-27'
+    observation: 'Host answers; every path including / returns an IIS 404 "Not Found". The footer link https://proscan.carmd.com/member 404s.'
+    http_status: 404
+  - url: https://www.carmd.com/api/
+    date: '2026-08-27'
+    observation: >-
+      The legacy CarMD API marketing/pricing page returns 404. The main site has been rebuilt on Shopify and
+      the developer-facing content did not migrate.
+    http_status: 404
+  - url: https://carmd.com/api/ucp/mcp
+    date: '2026-08-27'
+    observation: 'New agent-commerce surface, live and anonymous — initialize and tools/list both HTTP 200.'
+    http_status: 200
+maturity:
+  - surface: CarMD UCP Commerce MCP
+    stage: production
+    evidence: Serves the current UCP version and a real merchant catalog.
+  - surface: CarMD Storefront GraphQL
+    stage: production
+  - surface: CarMD Vehicle API (CarScan)
+    stage: unreachable
+    evidence: See availability_observations.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

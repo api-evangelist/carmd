@@ -1,0 +1,101 @@
+generated: '2026-08-27'
+method: probed
+source: https://carmd.com/api/ucp/mcp
+provider: CarMD
+providerId: carmd
+name: CarMD Universal Commerce (UCP) MCP Server
+description: >-
+  CarMD serves a live, anonymous Model Context Protocol endpoint on its own domain at
+  https://carmd.com/api/ucp/mcp. It is the Shopify-provided Universal Commerce Protocol (UCP) commerce
+  server for the CarMD store — it sells CarMD Connect hardware, not the CarMD Vehicle API. It was probed
+  directly: `initialize` returned serverInfo {"name":"universal-commerce","version":"0.1.0"} with
+  protocolVersion 2024-11-05, and `tools/list` returned 13 tools with full JSON Schema 2020-12 inputSchemas,
+  saved verbatim to mcp/carmd-ucp-tools-list.json. No CarMD Vehicle API MCP server exists; the developer API
+  host api.carmd.com refused connections at probe time.
+status: live
+ownership: >-
+  The endpoint is on carmd.com, the company's own primary domain, and an anonymous Storefront GraphQL query
+  against the same host returns shop.name "CarMD" with primaryDomain https://carmd.com. The UCP profile's
+  Google Pay handler carries merchant_name "CarMD" and merchant_origin carmd.com. The server software is
+  Shopify's platform UCP implementation; the merchant, catalog and endpoint are CarMD's.
+deployment:
+  mode: remote
+  endpoint: https://carmd.com/api/ucp/mcp
+  auth: none
+  verified: probed
+  note: >-
+    Anonymous. tools/list returned 200 with no credential. Tools require a `meta.ucp-agent.profile` URI in
+    every call; a call without one returns JSON-RPC error -32001 "UCP discovery failed"
+    (data.code invalid_profile_url) with HTTP 422. The UCP discovery document names an equivalent canonical
+    endpoint at https://wayps3-ui.myshopify.com/api/ucp/mcp (the same store's myshopify alias).
+protocol:
+  jsonrpc: '2.0'
+  mcp_protocol_version: '2024-11-05'
+  transport: streamable-http
+  server_info:
+    name: universal-commerce
+    version: 0.1.0
+  capabilities:
+    tools:
+      listChanged: true
+    prompts:
+      listChanged: true
+    resources:
+      listChanged: true
+    logging: {}
+discovery:
+  llms_txt: https://carmd.com/llms.txt
+  agents_md: https://carmd.com/agents.md
+  ucp_profile: https://carmd.com/.well-known/ucp
+  ucp_versions:
+    - '2026-04-08'
+    - '2026-01-23'
+tool_count: 13
+tools:
+  - name: get_checkout
+    category: checkout
+    description: Returns details about the checkout, including line items, totals, and any applicable discounts or taxes.
+  - name: create_checkout
+    category: checkout
+    description: Creates a checkout. Returns checkout details, including line items, totals, and any applicable discounts or taxes.
+  - name: update_checkout
+    category: checkout
+    description: Updates a checkout. Returns checkout details, including line items, totals, and any applicable discounts or taxes.
+  - name: complete_checkout
+    category: checkout
+    description: Completes a checkout and returns the checkout result. Buyer approval is required before payment.
+  - name: cancel_checkout
+    category: checkout
+    description: Cancels a checkout.
+  - name: get_cart
+    category: cart
+    description: Get the cart contents.
+  - name: create_cart
+    category: cart
+    description: Creates a new cart.
+  - name: update_cart
+    category: cart
+    description: Perform updates to a cart.
+  - name: cancel_cart
+    category: cart
+    description: Cancels a cart.
+  - name: get_order
+    category: order
+    description: Get the details of an order.
+  - name: search_catalog
+    category: catalog
+    description: Search for products from the online store, hosted on Shopify.
+  - name: lookup_catalog
+    category: catalog
+    description: Look up multiple products or variants by identifier.
+  - name: get_product
+    category: catalog
+    description: Retrieve complete product detail by identifier. Returns a singular product.
+raw_tools_list: mcp/carmd-ucp-tools-list.json
+constraints:
+  - Checkout requires contemporaneous human approval; agents must not complete payment without explicit buyer consent (stated in llms.txt).
+  - The MCP endpoint is rate-limited per IP; back off on 429 (stated in llms.txt).
+  - Prices are integers in ISO 4217 minor units paired with a currency code.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

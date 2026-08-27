@@ -1,0 +1,65 @@
+generated: '2026-08-27'
+method: probed
+source: >-
+  live error responses captured 2026-08-27 from https://carmd.com/api/ucp/mcp and
+  https://carmd.com/api/2026-04/graphql.json, plus https://carmd.com/llms.txt
+provider: CarMD
+providerId: carmd
+format: jsonrpc
+rfc9457: false
+description: >-
+  Error catalog for the CarMD surfaces that answer. There is no OpenAPI to derive 4xx/5xx responses from
+  and CarMD publishes no error reference page, so every entry below was produced by actually provoking the
+  error. This catalog is deliberately short: it records what was observed, not a guess at the full set.
+envelopes:
+  - surface: mcp
+    endpoint: https://carmd.com/api/ucp/mcp
+    media_type: application/json
+    shape: '{"jsonrpc":"2.0","id":<id>,"error":{"code":<int>,"message":<string>,"data":{"code":<slug>,"content":<string>,"continue_url":<url>}}}'
+  - surface: graphql
+    endpoint: https://carmd.com/api/2026-04/graphql.json
+    media_type: application/json
+    shape: '{"errors":[{"message":<string>}]}'
+    note: GraphQL returns HTTP 200 with an errors array rather than an HTTP error status.
+problems:
+  - id: ucp-invalid-profile-url
+    surface: mcp
+    http_status: 422
+    code: -32001
+    title: UCP discovery failed
+    data_code: invalid_profile_url
+    detail: 'Unable to fetch agent profile: Missing profile uri'
+    cause: The request omitted meta.ucp-agent.profile, the UCP agent profile URI every tool call must carry.
+    remediation: >-
+      Supply meta.ucp-agent.profile with a resolvable UCP agent profile URI on every tool call, including
+      calls to methods the client believes are unauthenticated.
+    observed: true
+    observed_request: '{"jsonrpc":"2.0","id":9,"method":"nope/x"}'
+  - id: graphql-no-query-string
+    surface: graphql
+    http_status: 200
+    code: null
+    title: No query string was present
+    detail: 'No query string was present'
+    cause: The endpoint was called without a GraphQL document (for example with GET rather than POST).
+    remediation: POST a JSON body containing a `query` field.
+    observed: true
+    observed_request: 'GET https://carmd.com/api/2026-04/graphql.json'
+  - id: rate-limited
+    surface: mcp
+    http_status: 429
+    code: null
+    title: Rate limited
+    detail: The MCP endpoint is rate-limited per IP.
+    cause: Too many requests from a single source IP.
+    remediation: Back off on 429 responses (stated verbatim in https://carmd.com/llms.txt).
+    observed: false
+    observed_note: Documented by the provider, not provoked during this run.
+not_found:
+  - what: A published error-code reference for the CarMD Vehicle API
+    why: >-
+      api.carmd.com refused TCP connections on 80 and 443, so its documentation could not be read; the
+      legacy https://www.carmd.com/api/ page now returns 404.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,140 @@
+generated: '2026-08-27'
+method: derived
+source: mcp/carmd-ucp-tools-list.json + graphql/carmd-storefront.graphql (both harvested live 2026-08-27)
+provider: CarMD
+providerId: carmd
+description: >-
+  Crosswalk between the two machine-readable surfaces CarMD actually serves: the UCP MCP server at
+  https://carmd.com/api/ucp/mcp (13 tools) and the Storefront GraphQL API at
+  https://carmd.com/api/2026-04/graphql.json (34 query fields, 41 mutations). There is no OpenAPI to bind
+  to — the `rest` column is empty on every row for that reason, and the binding is expressed against
+  GraphQL fields instead. Both surfaces are projections of the same Shopify commerce core, but they are not
+  identical: the MCP surface exposes an order read and a checkout lifecycle the anonymous GraphQL surface
+  does not, and GraphQL exposes content (blogs, articles, pages, menus, metaobjects) and customer-account
+  mutations the MCP surface does not.
+surfaces:
+  openapi:
+    present: false
+    note: No OpenAPI is published for any CarMD surface; api.carmd.com refused connections at probe time.
+  graphql:
+    endpoint: https://carmd.com/api/2026-04/graphql.json
+    sdl: graphql/carmd-storefront.graphql
+    gated: false
+    note: Anonymous introspection and anonymous data queries both returned 200.
+  mcp:
+    endpoint: https://carmd.com/api/ucp/mcp
+    gated: false
+    note: Anonymous tools/list returned 200; individual tool calls require a meta.ucp-agent.profile URI.
+crosswalk:
+  - tool: search_catalog
+    category: catalog
+    rest: []
+    graphql: [products, search, predictiveSearch, productRecommendations]
+    binding: graphql-field
+    confidence: high
+  - tool: lookup_catalog
+    category: catalog
+    rest: []
+    graphql: [nodes, products, productByHandle]
+    binding: graphql-field
+    confidence: medium
+  - tool: get_product
+    category: catalog
+    rest: []
+    graphql: [product, productByHandle]
+    binding: graphql-field
+    confidence: high
+  - tool: get_cart
+    category: cart
+    rest: []
+    graphql: [cart]
+    binding: graphql-field
+    confidence: high
+  - tool: create_cart
+    category: cart
+    rest: []
+    graphql: [cartCreate]
+    binding: graphql-mutation
+    confidence: high
+  - tool: update_cart
+    category: cart
+    rest: []
+    graphql: [cartLinesAdd, cartLinesUpdate, cartLinesRemove, cartAttributesUpdate, cartNoteUpdate, cartDiscountCodesUpdate, cartBuyerIdentityUpdate]
+    binding: graphql-mutation
+    confidence: medium
+    note: One MCP tool fans out to seven cart mutations in GraphQL.
+  - tool: cancel_cart
+    category: cart
+    rest: []
+    graphql: [cartRemovePersonalData]
+    binding: graphql-mutation
+    confidence: low
+    note: No direct cart-cancel mutation exists on the Storefront API; the nearest analogue is personal-data removal.
+  - tool: create_checkout
+    category: checkout
+    rest: []
+    graphql: [cartCreate, cartPrepareForCompletion]
+    binding: composite
+    confidence: medium
+  - tool: get_checkout
+    category: checkout
+    rest: []
+    graphql: [cart, cartCompletionAttempt]
+    binding: composite
+    confidence: medium
+  - tool: update_checkout
+    category: checkout
+    rest: []
+    graphql: [cartDeliveryAddressesUpdate, cartSelectedDeliveryOptionsUpdate, cartPaymentUpdate, cartBillingAddressUpdate]
+    binding: composite
+    confidence: medium
+  - tool: complete_checkout
+    category: checkout
+    rest: []
+    graphql: [cartSubmitForCompletion]
+    binding: graphql-mutation
+    confidence: medium
+  - tool: cancel_checkout
+    category: checkout
+    rest: []
+    graphql: []
+    binding: none
+    confidence: low
+    note: No Storefront GraphQL mutation cancels a submitted checkout.
+  - tool: get_order
+    category: order
+    rest: []
+    graphql: []
+    binding: none
+    confidence: low
+    note: Order reads on the Storefront API require a customer access token; the MCP surface exposes get_order directly.
+mcp_only:
+  - tool: cancel_checkout
+    reason: No public Storefront GraphQL mutation cancels a checkout after submission.
+  - tool: get_order
+    reason: Anonymous order lookup is not available on the Storefront GraphQL surface.
+graphql_only:
+  - field: blog / blogs / blogByHandle / article / articles
+    reason: Content surface; the UCP commerce tool set has no content tools.
+  - field: page / pages / pageByHandle / menu
+    reason: Storefront content and navigation; no MCP equivalent.
+  - field: metaobject / metaobjects
+    reason: Custom content objects; no MCP equivalent.
+  - field: customerCreate / customerAccessTokenCreate / customerUpdate / customerAddress*
+    reason: Customer-account mutations; UCP delegates identity to the buyer's wallet or Shop Pay.
+  - field: shop / localization / locations / paymentSettings / sitemap / urlRedirects / publicApiVersions
+    reason: Store metadata; no MCP equivalent.
+  - field: shopPayPaymentRequestSessionCreate / shopPayPaymentRequestSessionSubmit
+    reason: Shop Pay session mutations exposed only on GraphQL.
+rest_only: []
+coverage:
+  mcp_tools: 13
+  mcp_tools_bound_to_graphql: 11
+  mcp_only: 2
+  graphql_query_fields: 34
+  graphql_mutations: 41
+  graphql_only_families: 6
+  openapi_operations: 0
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

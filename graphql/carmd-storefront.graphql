@@ -1,0 +1,5141 @@
+schema {
+  query: QueryRoot
+  mutation: Mutation
+}
+
+"""
+The set of valid sort keys for the Article query.
+"""
+enum ArticleSortKeys {
+  TITLE
+  BLOG_TITLE
+  AUTHOR
+  UPDATED_AT
+  PUBLISHED_AT
+  ID
+  RELEVANCE
+}
+
+"""
+The set of valid sort keys for the Blog query.
+"""
+enum BlogSortKeys {
+  HANDLE
+  TITLE
+  ID
+  RELEVANCE
+}
+
+"""
+Card brand, such as Visa or Mastercard, which can be used for payments.
+"""
+enum CardBrand {
+  VISA
+  MASTERCARD
+  DISCOVER
+  AMERICAN_EXPRESS
+  DINERS_CLUB
+  JCB
+}
+
+"""
+Represents how credit card details are provided for a direct payment.
+"""
+enum CartCardSource {
+  SAVED_CREDIT_CARD
+}
+
+"""
+Defines what type of merchandise is in the delivery group.
+"""
+enum CartDeliveryGroupType {
+  SUBSCRIPTION
+  ONE_TIME_PURCHASE
+}
+
+"""
+Error codes returned by [`CartUserError`](https://shopify.dev/docs/api/storefront/current/objects/CartUserError) during cart mutations. Covers validation failures for addresses, quantities, delivery options, merchandise lines, discount codes, and metafields.
+"""
+enum CartErrorCode {
+  INVALID
+  LESS_THAN
+  INVALID_MERCHANDISE_LINE
+  MERCHANDISE_NOT_APPLICABLE
+  MERCHANDISE_LINE_TRANSFORMERS_RUN_ERROR
+  MISSING_DISCOUNT_CODE
+  MISSING_NOTE
+  NOTE_TOO_LONG
+  INVALID_DELIVERY_GROUP
+  INVALID_DELIVERY_OPTION
+  PENDING_DELIVERY_GROUPS
+  INVALID_PAYMENT
+  PAYMENT_METHOD_NOT_SUPPORTED
+  PAYMENT_METHOD_NOT_APPLICABLE
+  INVALID_PAYMENT_DEFERRED_PAYMENT_REQUIRED
+  INVALID_PAYMENT_EMPTY_CART
+  VALIDATION_CUSTOM
+  INVALID_METAFIELDS
+  MISSING_CUSTOMER_ACCESS_TOKEN
+  INVALID_COMPANY_LOCATION
+  INVALID_INCREMENT
+  MINIMUM_NOT_MET
+  MAXIMUM_EXCEEDED
+  TOO_MANY_DELIVERY_ADDRESSES
+  ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED
+  INVALID_DELIVERY_ADDRESS_ID
+  BUYER_CANNOT_PURCHASE_FOR_COMPANY_LOCATION
+  BUNDLES_AND_ADDONS_CANNOT_BE_MIXED
+  PARENT_LINE_INVALID_REFERENCE
+  PARENT_LINE_NOT_FOUND
+  PARENT_LINE_NESTING_TOO_DEEP
+  PARENT_LINE_OPERATION_BLOCKED
+  GIFT_CARD_RECIPIENT_INVALID
+  ADDRESS_FIELD_IS_REQUIRED
+  ADDRESS_FIELD_IS_TOO_LONG
+  ADDRESS_FIELD_CONTAINS_EMOJIS
+  ADDRESS_FIELD_CONTAINS_HTML_TAGS
+  ADDRESS_FIELD_CONTAINS_URL
+  ADDRESS_FIELD_DOES_NOT_MATCH_EXPECTED_PATTERN
+  INVALID_ZIP_CODE_FOR_PROVINCE
+  INVALID_ZIP_CODE_FOR_COUNTRY
+  ZIP_CODE_NOT_SUPPORTED
+  PROVINCE_NOT_FOUND
+  UNSPECIFIED_ADDRESS_ERROR
+  PAYMENTS_CREDIT_CARD_BASE_EXPIRED
+  PAYMENTS_CREDIT_CARD_BASE_GATEWAY_NOT_SUPPORTED
+  PAYMENTS_CREDIT_CARD_GENERIC
+  PAYMENTS_CREDIT_CARD_MONTH_INCLUSION
+  PAYMENTS_CREDIT_CARD_NUMBER_INVALID
+  PAYMENTS_CREDIT_CARD_NUMBER_INVALID_FORMAT
+  PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_BLANK
+  PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_INVALID_FOR_CARD_TYPE
+  PAYMENTS_CREDIT_CARD_YEAR_EXPIRED
+  PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR
+  VARIANT_REQUIRES_SELLING_PLAN
+  SELLING_PLAN_NOT_APPLICABLE
+  SERVICE_UNAVAILABLE
+  CART_TOO_LARGE
+}
+
+"""
+The code for the cart warning.
+"""
+enum CartWarningCode {
+  MERCHANDISE_NOT_ENOUGH_STOCK
+  MERCHANDISE_OUT_OF_STOCK
+  PAYMENTS_GIFT_CARDS_UNAVAILABLE
+  DUPLICATE_DELIVERY_ADDRESS
+  DISCOUNT_CODE_NOT_HONOURED
+  DISCOUNT_NOT_FOUND
+  DISCOUNT_CURRENTLY_INACTIVE
+  DISCOUNT_USAGE_LIMIT_REACHED
+  DISCOUNT_CUSTOMER_USAGE_LIMIT_REACHED
+  DISCOUNT_CUSTOMER_NOT_ELIGIBLE
+  DISCOUNT_ELIGIBLE_CUSTOMER_MISSING
+  DISCOUNT_QUANTITY_NOT_IN_RANGE
+  DISCOUNT_PURCHASE_NOT_IN_RANGE
+  DISCOUNT_NO_ENTITLED_LINE_ITEMS
+  DISCOUNT_NO_ENTITLED_SHIPPING_LINES
+  DISCOUNT_INCOMPATIBLE_PURCHASE_TYPE
+  MERCHANDISE_SELLING_PLAN_NOT_APPLICABLE_ON_COMPANY_LOCATION
+}
+
+"""
+The set of valid sort keys for the Collection query.
+"""
+enum CollectionSortKeys {
+  TITLE
+  UPDATED_AT
+  ID
+  RELEVANCE
+}
+
+"""
+The code of the error that occurred during a cart completion attempt.
+"""
+enum CompletionErrorCode {
+  ERROR
+  INVENTORY_RESERVATION_ERROR
+  PAYMENT_ERROR
+  PAYMENT_TRANSIENT_ERROR
+  PAYMENT_AMOUNT_TOO_SMALL
+  PAYMENT_GATEWAY_NOT_ENABLED_ERROR
+  PAYMENT_INSUFFICIENT_FUNDS
+  PAYMENT_INVALID_PAYMENT_METHOD
+  PAYMENT_INVALID_CURRENCY
+  PAYMENT_INVALID_CREDIT_CARD
+  PAYMENT_INVALID_BILLING_ADDRESS
+  PAYMENT_CARD_DECLINED
+  PAYMENT_CALL_ISSUER
+}
+
+"""
+The precision of the value returned by a count field.
+"""
+enum CountPrecision {
+  EXACT
+  AT_LEAST
+}
+
+"""
+The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.
+If a territory doesn't have a country code value in the `CountryCode` enum, then it might be considered a subdivision
+of another country. For example, the territories associated with Spain are represented by the country code `ES`,
+and the territories associated with the United States of America are represented by the country code `US`.
+"""
+enum CountryCode {
+  AF
+  AX
+  AL
+  DZ
+  AD
+  AO
+  AI
+  AG
+  AR
+  AM
+  AW
+  AC
+  AU
+  AT
+  AZ
+  BS
+  BH
+  BD
+  BB
+  BY
+  BE
+  BZ
+  BJ
+  BM
+  BT
+  BO
+  BA
+  BW
+  BV
+  BR
+  IO
+  BN
+  BG
+  BF
+  BI
+  KH
+  CA
+  CV
+  BQ
+  KY
+  CF
+  TD
+  CL
+  CN
+  CX
+  CC
+  CO
+  KM
+  CG
+  CD
+  CK
+  CR
+  HR
+  CU
+  CW
+  CY
+  CZ
+  CI
+  DK
+  DJ
+  DM
+  DO
+  EC
+  EG
+  SV
+  GQ
+  ER
+  EE
+  SZ
+  ET
+  FK
+  FO
+  FJ
+  FI
+  FR
+  GF
+  PF
+  TF
+  GA
+  GM
+  GE
+  DE
+  GH
+  GI
+  GR
+  GL
+  GD
+  GP
+  GT
+  GG
+  GN
+  GW
+  GY
+  HT
+  HM
+  VA
+  HN
+  HK
+  HU
+  IS
+  IN
+  ID
+  IR
+  IQ
+  IE
+  IM
+  IL
+  IT
+  JM
+  JP
+  JE
+  JO
+  KZ
+  KE
+  KI
+  KP
+  XK
+  KW
+  KG
+  LA
+  LV
+  LB
+  LS
+  LR
+  LY
+  LI
+  LT
+  LU
+  MO
+  MG
+  MW
+  MY
+  MV
+  ML
+  MT
+  MQ
+  MR
+  MU
+  YT
+  MX
+  MD
+  MC
+  MN
+  ME
+  MS
+  MA
+  MZ
+  MM
+  NA
+  NR
+  NP
+  NL
+  AN
+  NC
+  NZ
+  NI
+  NE
+  NG
+  NU
+  NF
+  MK
+  NO
+  OM
+  PK
+  PS
+  PA
+  PG
+  PY
+  PE
+  PH
+  PN
+  PL
+  PT
+  QA
+  CM
+  RE
+  RO
+  RU
+  RW
+  BL
+  SH
+  KN
+  LC
+  MF
+  PM
+  WS
+  SM
+  ST
+  SA
+  SN
+  RS
+  SC
+  SL
+  SG
+  SX
+  SK
+  SI
+  SB
+  SO
+  ZA
+  GS
+  KR
+  SS
+  ES
+  LK
+  VC
+  SD
+  SR
+  SJ
+  SE
+  CH
+  SY
+  TW
+  TJ
+  TZ
+  TH
+  TL
+  TG
+  TK
+  TO
+  TT
+  TA
+  TN
+  TR
+  TM
+  TC
+  TV
+  UG
+  UA
+  AE
+  GB
+  US
+  UM
+  UY
+  UZ
+  VU
+  VE
+  VN
+  VG
+  WF
+  EH
+  YE
+  ZM
+  ZW
+  ZZ
+}
+
+"""
+The part of the image that should remain after cropping.
+"""
+enum CropRegion {
+  CENTER
+  TOP
+  BOTTOM
+  LEFT
+  RIGHT
+}
+
+"""
+The three-letter currency codes that represent the world currencies used in
+stores. These include standard ISO 4217 codes, legacy codes,
+and non-standard codes.
+"""
+enum CurrencyCode {
+  USD
+  EUR
+  GBP
+  CAD
+  AFN
+  ALL
+  DZD
+  AOA
+  ARS
+  AMD
+  AWG
+  AUD
+  BBD
+  AZN
+  BDT
+  BSD
+  BHD
+  BIF
+  BZD
+  BMD
+  BTN
+  BAM
+  BRL
+  BOB
+  BWP
+  BND
+  BGN
+  MMK
+  KHR
+  CVE
+  KYD
+  XAF
+  CLP
+  CNY
+  COP
+  KMF
+  CDF
+  CRC
+  HRK
+  CZK
+  DKK
+  DOP
+  XCD
+  EGP
+  ERN
+  ETB
+  FKP
+  XPF
+  FJD
+  GIP
+  GMD
+  GHS
+  GTQ
+  GYD
+  GEL
+  HTG
+  HNL
+  HKD
+  HUF
+  ISK
+  INR
+  IDR
+  ILS
+  IQD
+  JMD
+  JPY
+  JEP
+  JOD
+  KZT
+  KES
+  KID
+  KWD
+  KGS
+  LAK
+  LVL
+  LBP
+  LSL
+  LRD
+  LTL
+  MGA
+  MKD
+  MOP
+  MWK
+  MVR
+  MRU
+  MXN
+  MYR
+  MUR
+  MDL
+  MAD
+  MNT
+  MZN
+  NAD
+  NPR
+  ANG
+  NZD
+  NIO
+  NGN
+  NOK
+  OMR
+  PAB
+  PKR
+  PGK
+  PYG
+  PEN
+  PHP
+  PLN
+  QAR
+  RON
+  RUB
+  RWF
+  WST
+  SHP
+  SAR
+  RSD
+  SCR
+  SGD
+  SDG
+  SOS
+  SYP
+  ZAR
+  KRW
+  SSP
+  SBD
+  LKR
+  SRD
+  SZL
+  SEK
+  CHF
+  TWD
+  THB
+  TZS
+  TTD
+  TND
+  TRY
+  TMT
+  UGX
+  UAH
+  AED
+  UYU
+  UZS
+  VUV
+  VES
+  VND
+  XOF
+  YER
+  ZMW
+  BYN
+  BYR @deprecated
+  DJF
+  GNF
+  IRR
+  LYD
+  SLL
+  STD @deprecated
+  STN
+  TJS
+  TOP
+  VED
+  VEF @deprecated
+  XXX
+}
+
+"""
+Error codes returned by the [`CustomerUserError`](https://shopify.dev/docs/api/storefront/current/objects/CustomerUserError) object. These codes identify specific validation and processing failures for customer-related mutations, including account creation, updates, password resets, and address management.
+"""
+enum CustomerErrorCode {
+  BLANK
+  INVALID
+  TAKEN
+  TOO_LONG
+  TOO_SHORT
+  UNIDENTIFIED_CUSTOMER
+  CUSTOMER_DISABLED
+  PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE
+  CONTAINS_HTML_TAGS
+  CONTAINS_URL
+  TOKEN_INVALID
+  ALREADY_ENABLED
+  NOT_FOUND
+  BAD_DOMAIN
+  INVALID_MULTIPASS_REQUEST
+}
+
+"""
+Controls how delivery addresses are validated during cart operations. The default validation checks only the country code, while strict validation verifies all address fields against Shopify's checkout rules and rejects invalid addresses.
+
+Used by [`DeliveryAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/DeliveryAddressInput) when setting buyer identity preferences, and by [`CartSelectableAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressInput) and [`CartSelectableAddressUpdateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressUpdateInput) when managing cart delivery addresses.
+"""
+enum DeliveryAddressValidationStrategy {
+  COUNTRY_CODE_ONLY
+  STRICT
+}
+
+"""
+List of different delivery method types.
+"""
+enum DeliveryMethodType {
+  SHIPPING
+  PICK_UP
+  RETAIL
+  LOCAL
+  PICKUP_POINT
+  NONE
+}
+
+"""
+Digital wallet, such as Apple Pay, which can be used for accelerated checkouts.
+"""
+enum DigitalWallet {
+  APPLE_PAY
+  ANDROID_PAY
+  GOOGLE_PAY
+  SHOPIFY_PAY
+}
+
+"""
+Controls how a discount's value is distributed across entitled lines. A discount can either spread its value across all entitled lines or apply the full value to each line individually.
+
+Used by the [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication) interface and its implementations to capture the intentions of a discount source at the time of application.
+"""
+enum DiscountApplicationAllocationMethod {
+  ACROSS
+  EACH
+  ONE @deprecated
+}
+
+"""
+The lines on the order to which the discount is applied, of the type defined by
+the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+`LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
+"""
+enum DiscountApplicationTargetSelection {
+  ALL
+  ENTITLED
+  EXPLICIT
+}
+
+"""
+The type of line (i.e. line item or shipping line) on an order that the discount is applicable towards.
+"""
+enum DiscountApplicationTargetType {
+  LINE_ITEM
+  SHIPPING_LINE
+}
+
+"""
+Defines how to present the filter values, specifies the presentation of the filter.
+"""
+enum FilterPresentation {
+  IMAGE
+  SWATCH
+  TEXT
+}
+
+"""
+The type of data that the filter group represents.
+
+For more information, refer to [Filter products in a collection with the Storefront API]
+(https://shopify.dev/custom-storefronts/products-collections/filter-products).
+"""
+enum FilterType {
+  LIST
+  PRICE_RANGE
+  BOOLEAN
+}
+
+"""
+List of supported image content types.
+"""
+enum ImageContentType {
+  PNG
+  JPG
+  WEBP
+}
+
+"""
+Supported languages for retrieving translated storefront content. Pass a language code to the [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context) directive to return product titles, descriptions, and other translatable fields in that language. 
+
+The [`Localization`](https://shopify.dev/docs/api/storefront/current/objects/Localization) object provides the list of available languages for the active country, and each [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country) in [`availableCountries`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableCountries) includes its own available languages.
+"""
+enum LanguageCode {
+  AF
+  AK
+  AM
+  AR
+  AS
+  AZ
+  BE
+  BG
+  BM
+  BN
+  BO
+  BR
+  BS
+  CA
+  CE
+  CKB
+  CS
+  CY
+  DA
+  DE
+  DZ
+  EE
+  EL
+  EN
+  EO
+  ES
+  ET
+  EU
+  FA
+  FF
+  FI
+  FIL
+  FO
+  FR
+  FY
+  GA
+  GD
+  GL
+  GU
+  GV
+  HA
+  HE
+  HI
+  HR
+  HU
+  HY
+  IA
+  ID
+  IG
+  II
+  IS
+  IT
+  JA
+  JV
+  KA
+  KI
+  KK
+  KL
+  KM
+  KN
+  KO
+  KS
+  KU
+  KW
+  KY
+  LB
+  LG
+  LN
+  LO
+  LT
+  LU
+  LV
+  MG
+  MI
+  MK
+  ML
+  MN
+  MR
+  MS
+  MT
+  MY
+  NB
+  ND
+  NE
+  NL
+  NN
+  NO
+  OM
+  OR
+  OS
+  PA
+  PL
+  PS
+  PT_BR
+  PT_PT
+  QU
+  RM
+  RN
+  RO
+  RU
+  RW
+  SA
+  SC
+  SD
+  SE
+  SG
+  SI
+  SK
+  SL
+  SN
+  SO
+  SQ
+  SR
+  SU
+  SV
+  SW
+  TA
+  TE
+  TG
+  TH
+  TI
+  TK
+  TO
+  TR
+  TT
+  UG
+  UK
+  UR
+  UZ
+  VI
+  WO
+  XH
+  YI
+  YO
+  ZH_CN
+  ZH_TW
+  ZU
+  ZH
+  PT
+  CU
+  VO
+  LA
+  SH
+  MO
+}
+
+"""
+The set of valid sort keys for the Location query.
+"""
+enum LocationSortKeys {
+  ID
+  NAME
+  CITY
+  DISTANCE
+}
+
+"""
+The possible content types for a media object.
+"""
+enum MediaContentType {
+  EXTERNAL_VIDEO
+  IMAGE
+  MODEL_3D
+  VIDEO
+}
+
+"""
+Host for a Media Resource.
+"""
+enum MediaHost {
+  YOUTUBE
+  VIMEO
+}
+
+"""
+The possible formats for a media presentation.
+"""
+enum MediaPresentationFormat {
+  MODEL_VIEWER
+  IMAGE
+}
+
+"""
+A menu item type.
+"""
+enum MenuItemType {
+  FRONTPAGE
+  COLLECTION
+  COLLECTIONS
+  PRODUCT
+  CATALOG
+  PAGE
+  BLOG
+  ARTICLE
+  SEARCH
+  SHOP_POLICY
+  HTTP
+  METAOBJECT
+  CUSTOMER_ACCOUNT_PAGE
+}
+
+"""
+Possible error codes that can be returned by `MetafieldDeleteUserError`.
+"""
+enum MetafieldDeleteErrorCode {
+  INVALID_OWNER
+  METAFIELD_DOES_NOT_EXIST
+  APP_NOT_AUTHORIZED
+}
+
+"""
+Possible error codes that can be returned by `MetafieldsSetUserError`.
+"""
+enum MetafieldsSetUserErrorCode {
+  BLANK
+  INCLUSION
+  LESS_THAN_OR_EQUAL_TO
+  PRESENT
+  TOO_SHORT
+  TOO_LONG
+  INVALID_OWNER
+  INVALID_VALUE
+  INVALID_TYPE
+  APP_NOT_AUTHORIZED
+}
+
+"""
+Represents the reason for the order's cancellation.
+"""
+enum OrderCancelReason {
+  CUSTOMER
+  DECLINED
+  FRAUD
+  INVENTORY
+  STAFF
+  OTHER
+}
+
+"""
+Represents the order's current financial status.
+"""
+enum OrderFinancialStatus {
+  PENDING
+  AUTHORIZED
+  PARTIALLY_PAID
+  PARTIALLY_REFUNDED
+  VOIDED
+  PAID
+  REFUNDED
+}
+
+"""
+The aggregated fulfillment status of an [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order), summarizing the state of all line items. Used for display purposes. 
+
+Statuses range from unfulfilled to fully fulfilled, with intermediate states such as in progress and on hold.
+
+Learn more about [order statuses](https://help.shopify.com/manual/fulfillment/managing-orders/order-status).
+"""
+enum OrderFulfillmentStatus {
+  UNFULFILLED
+  PARTIALLY_FULFILLED
+  FULFILLED
+  RESTOCKED
+  PENDING_FULFILLMENT
+  OPEN
+  IN_PROGRESS
+  ON_HOLD
+  SCHEDULED
+}
+
+"""
+The set of valid sort keys for the Order query.
+"""
+enum OrderSortKeys {
+  PROCESSED_AT
+  TOTAL_PRICE
+  ID
+  RELEVANCE
+}
+
+"""
+The set of valid sort keys for the Page query.
+"""
+enum PageSortKeys {
+  TITLE
+  UPDATED_AT
+  ID
+  RELEVANCE
+}
+
+"""
+Decides the distribution of results.
+"""
+enum PredictiveSearchLimitScope {
+  ALL
+  EACH
+}
+
+"""
+The types of search items to perform predictive search on.
+"""
+enum PredictiveSearchType {
+  COLLECTION
+  PRODUCT
+  PAGE
+  ARTICLE
+  QUERY
+}
+
+"""
+The preferred delivery methods such as shipping, local pickup or through pickup points.
+"""
+enum PreferenceDeliveryMethodType {
+  SHIPPING
+  PICK_UP
+  PICKUP_POINT
+}
+
+"""
+Sort options for products within a [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection). Used by the [`products`](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products) connection to order results by best-selling, price, title, creation date, or the collection's default and manual ordering.
+
+> Note: The [`RELEVANCE`](https://shopify.dev/docs/api/storefront/current/enums/ProductCollectionSortKeys#enums-RELEVANCE) key applies only when you specify a search query.
+"""
+enum ProductCollectionSortKeys {
+  TITLE
+  PRICE
+  BEST_SELLING
+  CREATED
+  ID
+  MANUAL
+  COLLECTION_DEFAULT
+  RELEVANCE
+}
+
+"""
+The set of valid sort keys for the ProductImage query.
+"""
+enum ProductImageSortKeys {
+  CREATED_AT
+  POSITION
+  ID
+  RELEVANCE
+}
+
+"""
+The set of valid sort keys for the ProductMedia query.
+"""
+enum ProductMediaSortKeys {
+  POSITION
+  ID
+  RELEVANCE
+}
+
+"""
+The recommendation intent that is used to generate product recommendations.
+You can use intent to generate product recommendations according to different strategies.
+"""
+enum ProductRecommendationIntent {
+  RELATED
+  COMPLEMENTARY
+}
+
+"""
+Sorting options for the [`products`](https://shopify.dev/docs/api/storefront/current/queries/products) query. Supports sorting products by criteria such as best-selling and price, and by product attributes such as type, and vendor. 
+
+> Note: Use the [`RELEVANCE`](https://shopify.dev/docs/api/storefront/current/enums/ProductSortKeys#enums-RELEVANCE) key only when a search query is specified.
+"""
+enum ProductSortKeys {
+  TITLE
+  PRODUCT_TYPE
+  VENDOR
+  UPDATED_AT
+  CREATED_AT
+  BEST_SELLING
+  PRICE
+  ID
+  RELEVANCE
+}
+
+"""
+The set of valid sort keys for the ProductVariant query.
+"""
+enum ProductVariantSortKeys {
+  TITLE
+  SKU
+  POSITION
+  ID
+  RELEVANCE
+}
+
+"""
+Specifies whether to perform a partial word match on the last search term.
+"""
+enum SearchPrefixQueryType {
+  LAST
+  NONE
+}
+
+"""
+The set of valid sort keys for the search query.
+"""
+enum SearchSortKeys {
+  PRICE
+  RELEVANCE
+}
+
+"""
+The types of search items to perform search within.
+"""
+enum SearchType {
+  PRODUCT
+  PAGE
+  ARTICLE
+}
+
+"""
+Specifies whether to display results for unavailable products.
+"""
+enum SearchUnavailableProductsType {
+  SHOW
+  HIDE
+  LAST
+}
+
+"""
+Specifies the list of resource fields to search.
+"""
+enum SearchableField {
+  AUTHOR
+  BODY
+  PRODUCT_TYPE
+  TAG
+  TITLE
+  VARIANTS_BARCODE
+  VARIANTS_SKU
+  VARIANTS_TITLE
+  VENDOR
+}
+
+"""
+The checkout charge when the full amount isn't charged at checkout.
+"""
+enum SellingPlanCheckoutChargeType {
+  PERCENTAGE
+  PRICE
+}
+
+"""
+Represents a valid selling plan interval.
+"""
+enum SellingPlanInterval {
+  DAY
+  MONTH
+  WEEK
+  YEAR
+}
+
+"""
+The payment frequency for a Shop Pay Installments Financing Plan.
+"""
+enum ShopPayInstallmentsFinancingPlanFrequency {
+  WEEKLY
+  MONTHLY
+}
+
+"""
+The loan type for a Shop Pay Installments Financing Plan Term.
+"""
+enum ShopPayInstallmentsLoan {
+  INTEREST
+  SPLIT_PAY
+  ZERO_PERCENT
+}
+
+"""
+Represents the delivery method type for a Shop Pay payment request.
+"""
+enum ShopPayPaymentRequestDeliveryMethodType {
+  SHIPPING
+  PICKUP
+}
+
+"""
+The types of resources potentially present in a sitemap.
+"""
+enum SitemapType {
+  PRODUCT
+  COLLECTION
+  PAGE
+  METAOBJECT
+  BLOG
+  ARTICLE
+}
+
+"""
+The code of the error that occurred during cart submit for completion.
+"""
+enum SubmissionErrorCode {
+  ERROR
+  NO_DELIVERY_GROUP_SELECTED
+  BUYER_IDENTITY_EMAIL_IS_INVALID
+  BUYER_IDENTITY_EMAIL_REQUIRED
+  BUYER_IDENTITY_PHONE_IS_INVALID
+  DELIVERY_ADDRESS1_INVALID
+  DELIVERY_ADDRESS1_REQUIRED
+  DELIVERY_ADDRESS1_TOO_LONG
+  DELIVERY_ADDRESS2_INVALID
+  DELIVERY_ADDRESS2_REQUIRED
+  DELIVERY_ADDRESS2_TOO_LONG
+  DELIVERY_CITY_INVALID
+  DELIVERY_CITY_REQUIRED
+  DELIVERY_CITY_TOO_LONG
+  DELIVERY_COMPANY_INVALID
+  DELIVERY_COMPANY_REQUIRED
+  DELIVERY_COMPANY_TOO_LONG
+  DELIVERY_COUNTRY_REQUIRED
+  DELIVERY_FIRST_NAME_INVALID
+  DELIVERY_FIRST_NAME_REQUIRED
+  DELIVERY_FIRST_NAME_TOO_LONG
+  DELIVERY_INVALID_POSTAL_CODE_FOR_COUNTRY
+  DELIVERY_INVALID_POSTAL_CODE_FOR_ZONE
+  DELIVERY_LAST_NAME_INVALID
+  DELIVERY_LAST_NAME_REQUIRED
+  DELIVERY_LAST_NAME_TOO_LONG
+  DELIVERY_NO_DELIVERY_AVAILABLE
+  DELIVERY_NO_DELIVERY_AVAILABLE_FOR_MERCHANDISE_LINE
+  DELIVERY_OPTIONS_PHONE_NUMBER_INVALID
+  DELIVERY_OPTIONS_PHONE_NUMBER_REQUIRED
+  DELIVERY_PHONE_NUMBER_INVALID
+  DELIVERY_PHONE_NUMBER_REQUIRED
+  DELIVERY_POSTAL_CODE_INVALID
+  DELIVERY_POSTAL_CODE_REQUIRED
+  DELIVERY_ZONE_NOT_FOUND
+  DELIVERY_ZONE_REQUIRED_FOR_COUNTRY
+  DELIVERY_ADDRESS_REQUIRED
+  MERCHANDISE_NOT_APPLICABLE
+  MERCHANDISE_LINE_LIMIT_REACHED
+  MERCHANDISE_NOT_ENOUGH_STOCK_AVAILABLE
+  MERCHANDISE_OUT_OF_STOCK
+  MERCHANDISE_PRODUCT_NOT_PUBLISHED
+  PAYMENTS_ADDRESS1_INVALID
+  PAYMENTS_ADDRESS1_REQUIRED
+  PAYMENTS_ADDRESS1_TOO_LONG
+  PAYMENTS_ADDRESS2_INVALID
+  PAYMENTS_ADDRESS2_REQUIRED
+  PAYMENTS_ADDRESS2_TOO_LONG
+  PAYMENTS_CITY_INVALID
+  PAYMENTS_CITY_REQUIRED
+  PAYMENTS_CITY_TOO_LONG
+  PAYMENTS_COMPANY_INVALID
+  PAYMENTS_COMPANY_REQUIRED
+  PAYMENTS_COMPANY_TOO_LONG
+  PAYMENTS_COUNTRY_REQUIRED
+  PAYMENTS_CREDIT_CARD_BASE_EXPIRED
+  PAYMENTS_CREDIT_CARD_BASE_GATEWAY_NOT_SUPPORTED
+  PAYMENTS_CREDIT_CARD_BASE_INVALID_START_DATE_OR_ISSUE_NUMBER_FOR_DEBIT
+  PAYMENTS_CREDIT_CARD_BRAND_NOT_SUPPORTED
+  PAYMENTS_CREDIT_CARD_FIRST_NAME_BLANK
+  PAYMENTS_CREDIT_CARD_GENERIC
+  PAYMENTS_CREDIT_CARD_LAST_NAME_BLANK
+  PAYMENTS_CREDIT_CARD_MONTH_INCLUSION
+  PAYMENTS_CREDIT_CARD_NAME_INVALID
+  PAYMENTS_CREDIT_CARD_NUMBER_INVALID
+  PAYMENTS_CREDIT_CARD_NUMBER_INVALID_FORMAT
+  PAYMENTS_CREDIT_CARD_SESSION_ID
+  PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_BLANK
+  PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_INVALID_FOR_CARD_TYPE
+  PAYMENTS_CREDIT_CARD_YEAR_EXPIRED
+  PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR
+  PAYMENTS_FIRST_NAME_INVALID
+  PAYMENTS_FIRST_NAME_REQUIRED
+  PAYMENTS_FIRST_NAME_TOO_LONG
+  PAYMENTS_INVALID_POSTAL_CODE_FOR_COUNTRY
+  PAYMENTS_INVALID_POSTAL_CODE_FOR_ZONE
+  PAYMENTS_LAST_NAME_INVALID
+  PAYMENTS_LAST_NAME_REQUIRED
+  PAYMENTS_LAST_NAME_TOO_LONG
+  PAYMENTS_METHOD_UNAVAILABLE
+  PAYMENTS_METHOD_REQUIRED
+  PAYMENTS_UNACCEPTABLE_PAYMENT_AMOUNT
+  PAYMENTS_PHONE_NUMBER_INVALID
+  PAYMENTS_PHONE_NUMBER_REQUIRED
+  PAYMENTS_POSTAL_CODE_INVALID
+  PAYMENTS_POSTAL_CODE_REQUIRED
+  PAYMENTS_SHOPIFY_PAYMENTS_REQUIRED
+  PAYMENTS_WALLET_CONTENT_MISSING
+  PAYMENTS_BILLING_ADDRESS_ZONE_NOT_FOUND
+  PAYMENTS_BILLING_ADDRESS_ZONE_REQUIRED_FOR_COUNTRY
+  REDIRECT_TO_CHECKOUT_REQUIRED
+  TAXES_MUST_BE_DEFINED
+  TAXES_LINE_ID_NOT_FOUND
+  TAXES_DELIVERY_GROUP_ID_NOT_FOUND
+  VALIDATION_CUSTOM
+}
+
+"""
+The accepted types of unit of measurement.
+"""
+enum UnitPriceMeasurementMeasuredType {
+  VOLUME
+  WEIGHT
+  LENGTH
+  AREA
+  COUNT
+  UNKNOWN
+}
+
+"""
+The valid units of measurement for a unit price measurement.
+"""
+enum UnitPriceMeasurementMeasuredUnit {
+  ML
+  CL
+  L
+  M3
+  FLOZ
+  PT
+  QT
+  GAL
+  MG
+  G
+  KG
+  LB
+  OZ
+  MM
+  CM
+  M
+  IN
+  FT
+  YD
+  M2
+  FT2
+  ITEM
+  UNKNOWN
+}
+
+"""
+Systems of weights and measures.
+"""
+enum UnitSystem {
+  IMPERIAL_SYSTEM
+  METRIC_SYSTEM
+}
+
+"""
+Possible error codes that can be returned by `ShopPayPaymentRequestSessionUserErrors`.
+"""
+enum UserErrorsShopPayPaymentRequestSessionUserErrorsCode {
+  PAYMENT_REQUEST_INVALID_INPUT
+  PAYMENT_REQUEST_NOT_FOUND
+  IDEMPOTENCY_KEY_ALREADY_USED
+}
+
+"""
+Units of measurement for weight, supporting both metric and imperial systems. Used by [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) to specify the unit for the variant's weight value.
+"""
+enum WeightUnit {
+  KILOGRAMS
+  GRAMS
+  POUNDS
+  OUNCES
+}
+
+"""
+The input fields for submitting Apple Pay payment method information for checkout.
+"""
+input ApplePayWalletContentInput {
+  billingAddress: MailingAddressInput!
+  data: String!
+  header: ApplePayWalletHeaderInput!
+  lastDigits: String
+  signature: String!
+  version: String!
+}
+
+"""
+The input fields for submitting wallet payment method information for checkout.
+"""
+input ApplePayWalletHeaderInput {
+  applicationData: String
+  ephemeralPublicKey: String!
+  publicKeyHash: String!
+  transactionId: String!
+}
+
+"""
+A custom key-value pair that stores additional information on a [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart) or [cart line](https://shopify.dev/docs/api/storefront/current/objects/CartLine). Attributes capture additional information like gift messages, special instructions, or custom order details. Learn more about [managing carts with the Storefront API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
+"""
+input AttributeInput {
+  key: String!
+  value: String!
+}
+
+"""
+Identifies a B2B buyer for the [`@inContext`](https://shopify.dev/docs/storefronts/headless/bring-your-own-stack/b2b) directive. Pass this input to contextualize Storefront API queries with data like B2B-specific pricing, quantity rules, and quantity price breaks.
+
+For B2B customers with access to multiple company locations, include the [`companyLocationId`](https://shopify.dev/docs/api/storefront/latest/input-objects/BuyerInput#fields-companyLocationId) to specify which location they're purchasing for.
+"""
+input BuyerInput {
+  customerAccessToken: String!
+  companyLocationId: ID
+}
+
+"""
+Specifies a delivery address for a cart. Provide either a [`deliveryAddress`](https://shopify.dev/docs/api/storefront/current/input-objects/CartAddressInput#fields-deliveryAddress) with full address details, or a [`copyFromCustomerAddressId`](https://shopify.dev/docs/api/storefront/current/input-objects/CartAddressInput#fields-copyFromCustomerAddressId) to copy from an existing customer address. Used by [`CartSelectableAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressInput) and [`CartSelectableAddressUpdateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressUpdateInput).
+"""
+input CartAddressInput {
+  deliveryAddress: CartDeliveryAddressInput
+  copyFromCustomerAddressId: ID
+}
+
+"""
+The input fields for identifying the buyer associated with a cart. Buyer identity determines [international pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing) and should match the customer's shipping address.
+
+Used by [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate) and [`cartBuyerIdentityUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartBuyerIdentityUpdate) to set contact information, location, and checkout preferences.
+
+> Note:
+> Preferences prefill fields at checkout but don't sync back to the cart if overwritten.
+"""
+input CartBuyerIdentityInput {
+  email: String
+  phone: String
+  companyLocationId: ID
+  countryCode: CountryCode
+  customerAccessToken: String
+  preferences: CartPreferencesInput
+}
+
+"""
+The input fields to create or update a cart address.
+"""
+input CartDeliveryAddressInput {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  countryCode: CountryCode
+  firstName: String
+  lastName: String
+  phone: String
+  provinceCode: String
+  zip: String
+}
+
+"""
+Preferred location used to find the closest pick up point based on coordinates.
+"""
+input CartDeliveryCoordinatesPreferenceInput {
+  latitude: Float!
+  longitude: Float!
+  countryCode: CountryCode!
+}
+
+"""
+The input fields for the cart's delivery properties.
+"""
+input CartDeliveryInput {
+  addresses: [CartSelectableAddressInput!]
+}
+
+"""
+Delivery preferences can be used to prefill the delivery section at checkout.
+"""
+input CartDeliveryPreferenceInput {
+  deliveryMethod: [PreferenceDeliveryMethodType!]
+  pickupHandle: [String!]
+  coordinates: CartDeliveryCoordinatesPreferenceInput
+}
+
+"""
+The input fields for submitting direct payment method information for checkout.
+"""
+input CartDirectPaymentMethodInput {
+  billingAddress: MailingAddressInput!
+  sessionId: String!
+  cardSource: CartCardSource
+  acceptedSubscriptionTerms: Boolean = false
+}
+
+"""
+The input fields for submitting a billing address without a selected payment method.
+"""
+input CartFreePaymentMethodInput {
+  billingAddress: MailingAddressInput!
+}
+
+"""
+The input fields for creating a [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). Used by the [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate) mutation.
+
+Accepts merchandise lines, discount codes, gift card codes, and a note. You can also set custom attributes, metafields, buyer identity for international pricing, and delivery addresses.
+"""
+input CartInput {
+  attributes: [AttributeInput!]
+  lines: [CartLineInput!]
+  discountCodes: [String!]
+  giftCardCodes: [String!]
+  note: String
+  buyerIdentity: CartBuyerIdentityInput
+  delivery: CartDeliveryInput
+  metafields: [CartInputMetafieldInput!]
+}
+
+"""
+The input fields for a cart metafield value to set.
+
+Cart metafields will be copied to order metafields at order creation time if there is a matching order metafield definition with the [`cart to order copyable`](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable) capability enabled.
+"""
+input CartInputMetafieldInput {
+  key: String!
+  value: String!
+  type: String!
+}
+
+"""
+The input fields for adding a merchandise line to a cart. Each line represents a [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) the buyer intends to purchase, along with the quantity and optional [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan) for subscriptions.
+
+Used by the [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate) mutation when creating a cart with initial items, and the [`cartLinesAdd`](https://shopify.dev/docs/api/storefront/current/mutations/cartLinesAdd) mutation when adding items to an existing cart.
+"""
+input CartLineInput {
+  attributes: [AttributeInput!]
+  quantity: Int = 1
+  merchandiseId: ID!
+  sellingPlanId: ID
+  parent: CartLineParentInput
+}
+
+"""
+The parent line item of the cart line.
+"""
+input CartLineParentInput {
+  lineId: ID
+  merchandiseId: ID
+}
+
+"""
+The input fields for updating a merchandise line in a cart. Used by the [`cartLinesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartLinesUpdate) mutation.
+
+Specify the line item's [`id`](https://shopify.dev/docs/api/storefront/current/input-objects/CartLineUpdateInput#fields-id) along with any fields to modify. You can change the quantity, swap the merchandise, update custom attributes, or associate a different selling plan.
+"""
+input CartLineUpdateInput {
+  id: ID!
+  quantity: Int
+  merchandiseId: ID
+  attributes: [AttributeInput!]
+  sellingPlanId: ID
+}
+
+"""
+The input fields to delete a cart metafield.
+"""
+input CartMetafieldDeleteInput {
+  ownerId: ID!
+  key: String!
+}
+
+"""
+The input fields for a cart metafield value to set.
+"""
+input CartMetafieldsSetInput {
+  ownerId: ID!
+  key: String!
+  value: String!
+  type: String!
+}
+
+"""
+The input fields for updating the payment method that will be used to checkout.
+"""
+input CartPaymentInput {
+  amount: MoneyInput!
+  sourceIdentifier: String
+  freePaymentMethod: CartFreePaymentMethodInput
+  directPaymentMethod: CartDirectPaymentMethodInput
+  walletPaymentMethod: CartWalletPaymentMethodInput
+}
+
+"""
+The input fields represent preferences for the buyer that is interacting with the cart.
+"""
+input CartPreferencesInput {
+  delivery: CartDeliveryPreferenceInput
+  wallet: [String!]
+}
+
+"""
+The input fields for a selectable delivery address to present to the buyer. Used by [`CartDeliveryInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartDeliveryInput) when creating a cart with the [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate) mutation.
+
+You can pre-select an address for the buyer, mark it as one-time use so it isn't saved after checkout, and specify how strictly the address should be validated.
+"""
+input CartSelectableAddressInput {
+  address: CartAddressInput!
+  selected: Boolean
+  oneTimeUse: Boolean
+  validationStrategy: DeliveryAddressValidationStrategy = COUNTRY_CODE_ONLY
+}
+
+"""
+The input fields to update a line item on a cart.
+"""
+input CartSelectableAddressUpdateInput {
+  id: ID!
+  address: CartAddressInput
+  selected: Boolean
+  oneTimeUse: Boolean
+  validationStrategy: DeliveryAddressValidationStrategy = COUNTRY_CODE_ONLY
+}
+
+"""
+The input fields for updating the selected delivery options for a delivery group.
+"""
+input CartSelectedDeliveryOptionInput {
+  deliveryGroupId: ID!
+  deliveryOptionHandle: String!
+}
+
+"""
+The input fields for submitting wallet payment method information for checkout.
+"""
+input CartWalletPaymentMethodInput {
+  applePayWalletContent: ApplePayWalletContentInput
+  shopPayWalletContent: ShopPayWalletContentInput
+}
+
+"""
+A filter used to view a subset of products in a collection matching a specific category value.
+"""
+input CategoryFilter {
+  id: String!
+}
+
+"""
+The input fields for authenticating a customer with email and password. Used by the [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate) mutation to generate a [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken), which is required to read or modify customer data.
+"""
+input CustomerAccessTokenCreateInput {
+  email: String!
+  password: String!
+}
+
+"""
+The input fields to activate a customer.
+"""
+input CustomerActivateInput {
+  activationToken: String!
+  password: String!
+}
+
+"""
+The input fields for creating a new [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer) account. Used by the [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate) mutation.
+
+For legacy customer accounts only and requires an email address and password. Optionally accepts the customer's name, phone number, and email marketing consent.
+
+> Caution:
+> The password is used for customer authentication. Ensure it's transmitted securely and never logged or stored in plain text.
+"""
+input CustomerCreateInput {
+  firstName: String
+  lastName: String
+  email: String!
+  phone: String
+  password: String!
+  acceptsMarketing: Boolean
+}
+
+"""
+The input fields to reset a customer's password.
+"""
+input CustomerResetInput {
+  resetToken: String!
+  password: String!
+}
+
+"""
+The input fields for updating a [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer). Used by the [`customerUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/customerUpdate) mutation.
+
+> Caution:
+> Updating the password invalidates all existing access tokens, including the one used to perform the mutation. The response returns a new access token. Ensure your app handles the new token returned in the response to avoid logging the customer out.
+"""
+input CustomerUpdateInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  password: String
+  acceptsMarketing: Boolean
+}
+
+"""
+The input fields for delivery address preferences.
+"""
+input DeliveryAddressInput {
+  deliveryAddress: MailingAddressInput
+  oneTimeUse: Boolean = false
+  deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy = COUNTRY_CODE_ONLY
+  customerAddressId: ID
+}
+
+"""
+The input fields used to specify a geographical location.
+"""
+input GeoCoordinateInput {
+  latitude: Float!
+  longitude: Float!
+}
+
+"""
+The input fields to identify a [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield) on an owner resource by namespace and key. Used as an argument to the [`metafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields) field of the `HasMetafields` interface to retrieve multiple metafields in a single request.
+
+If you omit the namespace, then the [app-reserved namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields) is used by default.
+"""
+input HasMetafieldsIdentifier {
+  namespace: String
+  key: String!
+}
+
+"""
+The available options for transforming an image.
+
+All transformation options are considered best effort. Any transformation that
+the original image type doesn't support will be ignored.
+"""
+input ImageTransformInput {
+  crop: CropRegion
+  maxWidth: Int
+  maxHeight: Int
+  scale: Int = 1
+  preferredContentType: ImageContentType
+}
+
+"""
+The input fields for creating or updating a [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress). Accepts standard address components including street address, city, province, country, and postal code, along with customer name and contact information.
+
+Used by the [`customerAddressCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressCreate) and [`customerAddressUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressUpdate) mutations, and as part of [`DeliveryAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/DeliveryAddressInput) for cart delivery preferences.
+"""
+input MailingAddressInput {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  country: String
+  firstName: String
+  lastName: String
+  phone: String
+  province: String
+  zip: String
+}
+
+"""
+Filters products in a collection by matching a specific metafield value. Used by the [`ProductFilter`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter) input's `productMetafield` and `variantMetafield` fields.
+
+Supports the following metafield types: `number_integer`, `number_decimal`, `single_line_text_field`, and `boolean`.
+"""
+input MetafieldFilter {
+  namespace: String!
+  key: String!
+  value: String!
+}
+
+"""
+The input fields used to retrieve a metaobject by handle.
+"""
+input MetaobjectHandleInput {
+  handle: String!
+  type: String!
+}
+
+"""
+The input fields for a monetary value with currency.
+"""
+input MoneyInput {
+  amount: Decimal!
+  currencyCode: CurrencyCode!
+}
+
+"""
+A price range for filtering products in a collection. Used by the [`ProductFilter`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter) input's [`price`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter#fields-price) field.
+
+> Note: Omitting the [maximum](https://shopify.dev/docs/api/storefront/currents/input-objects/PriceRangeFilter#fields-max) returns all products above the [minimum](https://shopify.dev/docs/api/storefront/current/input-objects/PriceRangeFilter#fields-min).
+"""
+input PriceRangeFilter {
+  min: Float = 0.0
+  max: Float
+}
+
+"""
+The input fields for a filter used to view a subset of products in a collection.
+By default, the `available` and `price` filters are enabled. Filters are customized with the Shopify Search & Discovery app.
+Learn more about [customizing storefront filtering](https://help.shopify.com/manual/online-store/themes/customizing-themes/storefront-filters).
+"""
+input ProductFilter {
+  available: Boolean
+  variantOption: VariantOptionFilter
+  category: CategoryFilter
+  taxonomyMetafield: TaxonomyMetafieldFilter
+  productType: String
+  productVendor: String
+  price: PriceRangeFilter
+  productMetafield: MetafieldFilter
+  variantMetafield: MetafieldFilter
+  tag: String
+}
+
+"""
+The input fields required for a selected option.
+"""
+input SelectedOptionInput {
+  name: String!
+  value: String!
+}
+
+"""
+The input fields to create a delivery method for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestDeliveryMethodInput {
+  code: String
+  label: String
+  detail: String
+  amount: MoneyInput
+  minDeliveryDate: ISO8601DateTime
+  maxDeliveryDate: ISO8601DateTime
+  deliveryExpectationLabel: String
+}
+
+"""
+The input fields to create a discount for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestDiscountInput {
+  label: String
+  amount: MoneyInput
+}
+
+"""
+The input fields to create an image for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestImageInput {
+  url: String!
+  alt: String
+}
+
+"""
+The input fields represent a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestInput {
+  discountCodes: [String!]
+  lineItems: [ShopPayPaymentRequestLineItemInput!]
+  shippingLines: [ShopPayPaymentRequestShippingLineInput!]
+  total: MoneyInput!
+  subtotal: MoneyInput!
+  discounts: [ShopPayPaymentRequestDiscountInput!]
+  totalShippingPrice: ShopPayPaymentRequestTotalShippingPriceInput
+  totalTax: MoneyInput
+  selectedDeliveryMethodType: ShopPayPaymentRequestDeliveryMethodType
+  locale: String!
+  presentmentCurrency: CurrencyCode!
+  paymentMethod: String
+}
+
+"""
+The input fields to create a line item for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestLineItemInput {
+  label: String
+  quantity: Int!
+  sku: String
+  requiresShipping: Boolean
+  image: ShopPayPaymentRequestImageInput
+  originalLinePrice: MoneyInput
+  finalLinePrice: MoneyInput
+  lineDiscounts: [ShopPayPaymentRequestDiscountInput!]
+  originalItemPrice: MoneyInput
+  finalItemPrice: MoneyInput
+  itemDiscounts: [ShopPayPaymentRequestDiscountInput!]
+}
+
+"""
+The input fields to create a shipping line for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestShippingLineInput {
+  code: String
+  label: String
+  amount: MoneyInput
+}
+
+"""
+The input fields to create a shipping total for a Shop Pay payment request.
+"""
+input ShopPayPaymentRequestTotalShippingPriceInput {
+  discounts: [ShopPayPaymentRequestDiscountInput!]
+  originalTotal: MoneyInput
+  finalTotal: MoneyInput
+}
+
+"""
+The input fields for submitting Shop Pay payment method information for checkout.
+"""
+input ShopPayWalletContentInput {
+  billingAddress: MailingAddressInput!
+  sessionToken: String!
+}
+
+"""
+A filter used to view a subset of products in a collection matching a specific taxonomy metafield value.
+"""
+input TaxonomyMetafieldFilter {
+  namespace: String!
+  key: String!
+  value: String!
+}
+
+"""
+The input fields for a filter used to view a subset of products in a collection matching a specific variant option.
+"""
+input VariantOptionFilter {
+  name: String!
+  value: String!
+}
+
+"""
+The visitor's consent to data processing purposes for the shop. true means accepting the purposes, false means declining them, and null means that the visitor didn't express a preference.
+"""
+input VisitorConsent {
+  preferences: Boolean
+  analytics: Boolean
+  marketing: Boolean
+  saleOfData: Boolean
+}
+
+"""
+Defines the shared fields for items in a shopping cart. Implemented by [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine) for individual merchandise and [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine) for grouped merchandise like bundles.
+
+Each implementation includes the merchandise being purchased, quantity, cost breakdown, applied discounts, custom attributes, and any associated [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
+"""
+interface BaseCartLine implements Node {
+  attribute(key: String!): Attribute
+  attributes: [Attribute!]!
+  cost: CartLineCost!
+  discountAllocations: [CartDiscountAllocation!]!
+  estimatedCost: CartLineEstimatedCost! @deprecated
+  id: ID!
+  merchandise: Merchandise!
+  quantity: Int!
+  sellingPlanAllocation: SellingPlanAllocation
+}
+
+"""
+A common interface for querying discount allocations regardless of how the discount was applied ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts), [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes), or custom). Each implementation represents a different discount source.
+
+Tracks how a discount distributes across [cart lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine). Each allocation includes the [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication) details, the discounted amount, and whether the discount targets line items or shipping.
+"""
+interface CartDiscountAllocation {
+  discountApplication: CartDiscountApplication! @deprecated
+  discountedAmount: MoneyV2!
+  targetType: DiscountApplicationTargetType!
+}
+
+"""
+Captures the intent of a discount at the time it was applied. Each implementation represents a different discount source, such as [automatic discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts), [discount codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes), and manual discounts.
+
+The actual discounted amount on a line item or shipping line is represented by the [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation) object, which references the discount application it originated from.
+"""
+interface DiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  value: PricingValue!
+}
+
+"""
+Represents an error in the input of a mutation.
+"""
+interface DisplayableError {
+  field: [String!]
+  message: String!
+}
+
+"""
+Implemented by resources that support custom metadata through [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield) objects. Types like [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product), [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection), and [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer) implement this interface to provide consistent access to metafields.
+
+You can retrieve a [single metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield) by namespace and key, or fetch [multiple metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields) in a single request. If you omit the namespace, then the [app-reserved namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields) is used by default.
+"""
+interface HasMetafields {
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+}
+
+"""
+A common set of fields for media content associated with [products](https://shopify.dev/docs/api/storefront/current/objects/Product). Implementations include [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage) for Shopify-hosted images, [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video) for Shopify-hosted videos, [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo) for videos hosted on platforms like YouTube or Vimeo, and [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d) for 3D models.
+
+Each implementation shares fields for alt text, content type, and preview images, while adding type-specific fields like embed URLs for external videos or source files for 3D models.
+"""
+interface Media {
+  alt: String
+  id: ID!
+  mediaContentType: MediaContentType!
+  presentation: MediaPresentation
+  previewImage: Image
+}
+
+"""
+Enables global object identification following the [Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). Any type implementing this interface has a globally-unique `id` field and can be fetched directly using the [`node`](https://shopify.dev/docs/api/storefront/current/queries/node) or [`nodes`](https://shopify.dev/docs/api/storefront/current/queries/nodes) queries.
+"""
+interface Node {
+  id: ID!
+}
+
+"""
+Represents a resource that can be published to the Online Store sales channel.
+"""
+interface OnlineStorePublishable {
+  onlineStoreUrl: URL
+}
+
+"""
+Represents the common fields for all sitemap resource types.
+"""
+interface SitemapResourceInterface {
+  handle: String!
+  updatedAt: DateTime!
+}
+
+"""
+Represents a resource that you can track the origin of the search traffic.
+"""
+interface Trackable {
+  trackingParameters: String
+}
+
+"""
+A version of the Shopify API. Each version has a unique handle in date-based format (YYYY-MM) or `unstable` for the development version.
+
+Shopify guarantees supported versions are stable. Unsupported versions include unstable and release candidate versions. Use the [`publicApiVersions`](https://shopify.dev/docs/api/storefront/current/queries/publicApiVersions) query to retrieve all available versions. Learn more about [Shopify API versioning](https://shopify.dev/docs/api/usage/versioning).
+"""
+type ApiVersion {
+  displayName: String!
+  handle: String!
+  supported: Boolean!
+}
+
+"""
+Details about the gift card used on the checkout.
+"""
+type AppliedGiftCard implements Node {
+  amountUsed: MoneyV2!
+  amountUsedV2: MoneyV2! @deprecated
+  balance: MoneyV2!
+  balanceV2: MoneyV2! @deprecated
+  id: ID!
+  lastCharacters: String!
+  presentmentAmountUsed: MoneyV2!
+}
+
+"""
+A post that belongs to a [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog). Each article includes content with optional HTML formatting, an excerpt for previews, [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor) information, and an associated [`Image`](https://shopify.dev/docs/api/storefront/current/objects/Image).
+
+Articles can be organized with tags and include [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) metadata. You can manage [comments](https://shopify.dev/docs/api/storefront/current/objects/Comment) when the blog's comment policy enables them.
+"""
+type Article implements HasMetafields & Node & OnlineStorePublishable & Trackable {
+  author: ArticleAuthor! @deprecated
+  authorV2: ArticleAuthor
+  blog: Blog!
+  comments(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): CommentConnection!
+  content(truncateAt: Int): String!
+  contentHtml: HTML!
+  excerpt(truncateAt: Int): String
+  excerptHtml: HTML
+  handle: String!
+  id: ID!
+  image: Image
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  onlineStoreUrl: URL
+  publishedAt: DateTime!
+  seo: SEO
+  tags: [String!]!
+  title: String!
+  trackingParameters: String
+}
+
+"""
+The author of an article.
+"""
+type ArticleAuthor {
+  bio: String
+  email: String!
+  firstName: String!
+  lastName: String!
+  name: String!
+}
+
+"""
+An auto-generated type for paginating through multiple Articles.
+"""
+type ArticleConnection {
+  edges: [ArticleEdge!]!
+  nodes: [Article!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Article and a cursor during pagination.
+"""
+type ArticleEdge {
+  cursor: String!
+  node: Article!
+}
+
+"""
+A custom key-value pair for storing additional information on [carts](https://shopify.dev/docs/api/storefront/current/objects/Cart), [cart lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine), [orders](https://shopify.dev/docs/api/storefront/current/objects/Order), and [order line items](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem). Common uses include gift wrapping requests, customer notes, and tracking whether a customer is a first-time buyer.
+
+Attributes set on a cart carry over to the resulting order after checkout. Use the [`cartAttributesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartAttributesUpdate) mutation to add or modify cart attributes. For a step-by-step guide, see [managing carts with the Storefront API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
+"""
+type Attribute {
+  key: String!
+  value: String
+}
+
+"""
+An [automatic discount](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts) applied to a cart or checkout without requiring a discount code. Implements the [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication) interface.
+
+Includes the discount's title, value, and allocation details that specify how the discount amount distributes across entitled line items or shipping lines.
+"""
+type AutomaticDiscountApplication implements DiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  title: String!
+  value: PricingValue!
+}
+
+"""
+An auto-generated type for paginating through multiple BaseCartLines.
+"""
+type BaseCartLineConnection {
+  edges: [BaseCartLineEdge!]!
+  nodes: [BaseCartLine!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one BaseCartLine and a cursor during pagination.
+"""
+type BaseCartLineEdge {
+  cursor: String!
+  node: BaseCartLine!
+}
+
+"""
+A blog container for [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article) objects. Stores can have multiple blogs, for example to organize content by topic or purpose.
+
+Each blog provides access to its articles, contributing [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor) objects, and [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) information. You can retrieve articles individually [by handle](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articleByHandle) or as a [paginated list](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articles).
+"""
+type Blog implements HasMetafields & Node & OnlineStorePublishable {
+  articleByHandle(handle: String!): Article
+  articles(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ArticleSortKeys = ID, query: String): ArticleConnection!
+  authors: [ArticleAuthor!]!
+  handle: String!
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  onlineStoreUrl: URL
+  seo: SEO
+  title: String!
+}
+
+"""
+An auto-generated type for paginating through multiple Blogs.
+"""
+type BlogConnection {
+  edges: [BlogEdge!]!
+  nodes: [Blog!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Blog and a cursor during pagination.
+"""
+type BlogEdge {
+  cursor: String!
+  node: Blog!
+}
+
+"""
+The store's [branding configuration](https://help.shopify.com/manual/promoting-marketing/managing-brand-assets), such as logos, colors, and slogan. Access this through the [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.brand) object to display consistent brand assets across your storefront.
+"""
+type Brand {
+  colors: BrandColors!
+  coverImage: MediaImage
+  logo: MediaImage
+  shortDescription: String
+  slogan: String
+  squareLogo: MediaImage
+}
+
+"""
+A group of related colors for the shop's brand.
+"""
+type BrandColorGroup {
+  background: Color
+  foreground: Color
+}
+
+"""
+The colors of the shop's brand.
+"""
+type BrandColors {
+  primary: [BrandColorGroup!]!
+  secondary: [BrandColorGroup!]!
+}
+
+"""
+A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart, throughout a customer's session.
+
+Use the [`checkoutUrl`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-checkoutUrl) field to direct buyers to Shopify's web checkout to complete their purchase.
+
+Learn more about [interacting with carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
+"""
+type Cart implements HasMetafields & Node {
+  appliedGiftCards: [AppliedGiftCard!]!
+  attribute(key: String!): Attribute
+  attributes: [Attribute!]!
+  buyerIdentity: CartBuyerIdentity!
+  checkoutUrl: URL!
+  cost: CartCost!
+  createdAt: DateTime!
+  delivery: CartDelivery!
+  deliveryGroups(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, withCarrierRates: Boolean = false): CartDeliveryGroupConnection!
+  discountAllocations: [CartDiscountAllocation!]! @deprecated
+  discountCodes: [CartDiscountCode!]!
+  estimatedCost: CartEstimatedCost! @deprecated
+  id: ID!
+  lines(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): BaseCartLineConnection!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  note: String
+  totalQuantity: Int!
+  updatedAt: DateTime!
+}
+
+"""
+Return type for `cartAttributesUpdate` mutation.
+"""
+type CartAttributesUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+A discount allocation [that applies automatically](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts) to a cart line when configured conditions are met. Unlike [`CartCodeDiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/CartCodeDiscountAllocation), automatic discounts don't require customers to enter a code.
+"""
+type CartAutomaticDiscountAllocation implements CartDiscountAllocation {
+  discountApplication: CartDiscountApplication! @deprecated
+  discountedAmount: MoneyV2!
+  targetType: DiscountApplicationTargetType!
+  title: String!
+}
+
+"""
+Return type for `cartBillingAddressUpdate` mutation.
+"""
+type CartBillingAddressUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Contact information about the buyer interacting with a [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart). The buyer's country determines [international pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing) and should match their shipping address.
+
+For B2B scenarios, the [`purchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.purchasingCompany) field identifies the company and location on whose behalf a business customer purchases. The [`preferences`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.preferences) field stores delivery and wallet settings that prefill checkout fields to streamline the buying process.
+"""
+type CartBuyerIdentity {
+  countryCode: CountryCode
+  customer: Customer
+  deliveryAddressPreferences: [DeliveryAddress!]! @deprecated
+  email: String
+  phone: String
+  preferences: CartPreferences
+  purchasingCompany: PurchasingCompany
+}
+
+"""
+Return type for `cartBuyerIdentityUpdate` mutation.
+"""
+type CartBuyerIdentityUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartClone` mutation.
+"""
+type CartClonePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+A discount allocation applied to a cart line when a customer enters a [discount code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes).
+"""
+type CartCodeDiscountAllocation implements CartDiscountAllocation {
+  code: String!
+  discountApplication: CartDiscountApplication! @deprecated
+  discountedAmount: MoneyV2!
+  targetType: DiscountApplicationTargetType!
+}
+
+"""
+The required completion action to checkout a cart.
+"""
+type CartCompletionActionRequired {
+  action: CartCompletionAction
+  id: String!
+}
+
+"""
+A failed completion to checkout a cart.
+"""
+type CartCompletionFailed {
+  errors: [CompletionError!]!
+  id: String!
+}
+
+"""
+A cart checkout completion that's still processing.
+"""
+type CartCompletionProcessing {
+  id: String!
+  pollDelay: Int!
+}
+
+"""
+A successful completion to checkout a cart and a created order.
+"""
+type CartCompletionSuccess {
+  completedAt: DateTime
+  id: String!
+  orderId: ID!
+  orderUrl: URL!
+}
+
+"""
+The estimated costs that a buyer will pay at checkout. The `Cart` object's [`cost`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.cost) field returns this. The costs are subject to change and changes will be reflected at checkout. Costs reflect [international pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing) based on the buyer's context.
+
+Amounts include the subtotal before taxes and cart-level discounts, the checkout charge amount excluding deferred payments, and the total. The subtotal and total amounts each include a corresponding boolean field indicating whether the value is an estimate.
+"""
+type CartCost {
+  checkoutChargeAmount: MoneyV2!
+  subtotalAmount: MoneyV2!
+  subtotalAmountEstimated: Boolean!
+  totalAmount: MoneyV2!
+  totalAmountEstimated: Boolean!
+  totalDutyAmount: MoneyV2 @deprecated
+  totalDutyAmountEstimated: Boolean! @deprecated
+  totalTaxAmount: MoneyV2 @deprecated
+  totalTaxAmountEstimated: Boolean! @deprecated
+}
+
+"""
+Return type for `cartCreate` mutation.
+"""
+type CartCreatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+The discounts automatically applied to the cart line based on prerequisites that have been met.
+"""
+type CartCustomDiscountAllocation implements CartDiscountAllocation {
+  discountApplication: CartDiscountApplication! @deprecated
+  discountedAmount: MoneyV2!
+  targetType: DiscountApplicationTargetType!
+  title: String!
+}
+
+"""
+The delivery properties of the cart.
+"""
+type CartDelivery {
+  addresses(selected: Boolean = false): [CartSelectableAddress!]!
+}
+
+"""
+Represents a mailing address for customers and shipping.
+"""
+type CartDeliveryAddress {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  countryCode: String
+  firstName: String
+  formatted(withName: Boolean = false, withCompany: Boolean = true): [String!]!
+  formattedArea: String
+  lastName: String
+  latitude: Float
+  longitude: Float
+  name: String
+  phone: String
+  provinceCode: String
+  zip: String
+}
+
+"""
+Return type for `cartDeliveryAddressesAdd` mutation.
+"""
+type CartDeliveryAddressesAddPayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartDeliveryAddressesRemove` mutation.
+"""
+type CartDeliveryAddressesRemovePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartDeliveryAddressesReplace` mutation.
+"""
+type CartDeliveryAddressesReplacePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartDeliveryAddressesUpdate` mutation.
+"""
+type CartDeliveryAddressesUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Preferred location used to find the closest pick up point based on coordinates.
+"""
+type CartDeliveryCoordinatesPreference {
+  countryCode: CountryCode!
+  latitude: Float!
+  longitude: Float!
+}
+
+"""
+Groups cart line items that share the same delivery destination. Each group provides the available [`CartDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryOption) choices for that address, along with the customer's selected option.
+
+Access through the [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) object's `deliveryGroups` field. Items are grouped by merchandise type (one-time purchase vs subscription), allowing different delivery methods for each.
+"""
+type CartDeliveryGroup {
+  cartLines(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): BaseCartLineConnection!
+  deliveryAddress: MailingAddress!
+  deliveryOptions: [CartDeliveryOption!]!
+  groupType: CartDeliveryGroupType!
+  id: ID!
+  selectedDeliveryOption: CartDeliveryOption
+}
+
+"""
+An auto-generated type for paginating through multiple CartDeliveryGroups.
+"""
+type CartDeliveryGroupConnection {
+  edges: [CartDeliveryGroupEdge!]!
+  nodes: [CartDeliveryGroup!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one CartDeliveryGroup and a cursor during pagination.
+"""
+type CartDeliveryGroupEdge {
+  cursor: String!
+  node: CartDeliveryGroup!
+}
+
+"""
+A shipping or delivery choice available to customers during checkout. Each option includes a title, estimated cost, and delivery method type such as shipping or local pickup.
+
+Returned by the [`CartDeliveryGroup`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup) object's [`deliveryOptions`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.deliveryOptions) field and [`selectedDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.selectedDeliveryOption) field.
+"""
+type CartDeliveryOption {
+  code: String
+  deliveryMethodType: DeliveryMethodType!
+  description: String
+  estimatedCost: MoneyV2!
+  handle: String!
+  title: String
+}
+
+"""
+A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. 
+Preferences are not synced back to the cart if they are overwritten.
+"""
+type CartDeliveryPreference {
+  coordinates: CartDeliveryCoordinatesPreference
+  deliveryMethod: [PreferenceDeliveryMethodType!]!
+  pickupHandle: [String!]!
+}
+
+"""
+Captures the intent of a discount source at the time it was applied to a cart. This includes the discount value, how it's allocated across entitled items, and which line types it targets.
+
+The actual discounted amounts on specific cart lines are represented by [`CartDiscountAllocation`](https://shopify.dev/docs/api/storefront/current/interfaces/CartDiscountAllocation) objects, which reference this application.
+"""
+type CartDiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  value: PricingValue!
+}
+
+"""
+A discount code applied to a [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). Discount codes are case-insensitive and can be added using the [`cartDiscountCodesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartDiscountCodesUpdate) mutation.
+
+The [`applicable`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountCode#field-CartDiscountCode.fields.applicable) field indicates whether the code applies to the cart's current contents, which might change as items are added or removed.
+"""
+type CartDiscountCode {
+  applicable: Boolean!
+  code: String!
+}
+
+"""
+Return type for `cartDiscountCodesUpdate` mutation.
+"""
+type CartDiscountCodesUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+The estimated costs that the buyer pays at checkout. Uses [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity) to determine [international pricing](https://shopify.dev/docs/custom-storefronts/internationalization/international-pricing).
+
+Includes the subtotal, total amount, duties, and taxes. The [`checkoutChargeAmount`](https://shopify.dev/docs/api/storefront/current/objects/CartEstimatedCost#field-CartEstimatedCost.fields.checkoutChargeAmount) field excludes deferred payments that are charged later, making it useful for displaying what the customer pays immediately.
+"""
+type CartEstimatedCost {
+  checkoutChargeAmount: MoneyV2!
+  subtotalAmount: MoneyV2!
+  totalAmount: MoneyV2!
+  totalDutyAmount: MoneyV2
+  totalTaxAmount: MoneyV2
+}
+
+"""
+Return type for `cartGiftCardCodesAdd` mutation.
+"""
+type CartGiftCardCodesAddPayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartGiftCardCodesRemove` mutation.
+"""
+type CartGiftCardCodesRemovePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartGiftCardCodesUpdate` mutation.
+"""
+type CartGiftCardCodesUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+An item in a customer's [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) representing a product variant they intend to purchase. Each cart line tracks the merchandise, quantity, cost breakdown, and any applied discounts.
+
+Cart lines can include custom attributes for additional information like gift wrapping requests, and can be associated with a [`SellingPlanAllocation`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation) for purchase options like subscriptions, pre-orders, or try-before-you-buy. The [`instructions`](https://shopify.dev/docs/api/storefront/current/objects/CartLine#field-CartLine.fields.instructions) field indicates whether the line can be removed or have its quantity updated.
+"""
+type CartLine implements BaseCartLine & Node {
+  attribute(key: String!): Attribute
+  attributes: [Attribute!]!
+  cost: CartLineCost!
+  discountAllocations: [CartDiscountAllocation!]!
+  estimatedCost: CartLineEstimatedCost! @deprecated
+  id: ID!
+  instructions: CartLineInstructions!
+  merchandise: Merchandise!
+  parentRelationship: CartLineParentRelationship
+  quantity: Int!
+  sellingPlanAllocation: SellingPlanAllocation
+}
+
+"""
+Cost breakdown for a single line item in a [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart). Includes the per-unit price, the subtotal before line-level discounts, and the final total amount the buyer pays.
+
+The [`compareAtAmountPerQuantity`](https://shopify.dev/docs/api/storefront/current/objects/CartLineCost#field-CartLineCost.fields.compareAtAmountPerQuantity) field shows the original price when the item is on sale, enabling the display of savings to customers.
+"""
+type CartLineCost {
+  amountPerQuantity: MoneyV2!
+  compareAtAmountPerQuantity: MoneyV2
+  subtotalAmount: MoneyV2!
+  totalAmount: MoneyV2!
+}
+
+"""
+The estimated cost of the merchandise line that the buyer will pay at checkout.
+"""
+type CartLineEstimatedCost {
+  amount: MoneyV2!
+  compareAtAmount: MoneyV2
+  subtotalAmount: MoneyV2!
+  totalAmount: MoneyV2!
+}
+
+"""
+Represents instructions for a cart line item.
+"""
+type CartLineInstructions {
+  canRemove: Boolean!
+  canUpdateQuantity: Boolean!
+}
+
+"""
+Represents the parent relationship of a cart line.
+"""
+type CartLineParentRelationship {
+  parent: CartLine!
+}
+
+"""
+Return type for `cartLinesAdd` mutation.
+"""
+type CartLinesAddPayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartLinesRemove` mutation.
+"""
+type CartLinesRemovePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartLinesUpdate` mutation.
+"""
+type CartLinesUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Return type for `cartMetafieldDelete` mutation.
+"""
+type CartMetafieldDeletePayload {
+  deletedId: ID
+  userErrors: [MetafieldDeleteUserError!]!
+}
+
+"""
+Return type for `cartMetafieldsSet` mutation.
+"""
+type CartMetafieldsSetPayload {
+  metafields: [Metafield!]
+  userErrors: [MetafieldsSetUserError!]!
+}
+
+"""
+Return type for `cartNoteUpdate` mutation.
+"""
+type CartNoteUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+An error occurred during the cart operation.
+"""
+type CartOperationError {
+  code: String!
+  message: String
+}
+
+"""
+Return type for `cartPaymentUpdate` mutation.
+"""
+type CartPaymentUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. 
+Preferences are not synced back to the cart if they are overwritten.
+"""
+type CartPreferences {
+  delivery: CartDeliveryPreference
+  wallet: [String!]
+}
+
+"""
+Return type for `cartPrepareForCompletion` mutation.
+"""
+type CartPrepareForCompletionPayload {
+  result: CartPrepareForCompletionResult
+  userErrors: [CartUserError!]!
+}
+
+"""
+Return type for `cartRemovePersonalData` mutation.
+"""
+type CartRemovePersonalDataPayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+A selectable delivery address for a cart.
+"""
+type CartSelectableAddress {
+  address: CartAddress!
+  id: ID!
+  oneTimeUse: Boolean!
+  selected: Boolean!
+}
+
+"""
+Return type for `cartSelectedDeliveryOptionsUpdate` mutation.
+"""
+type CartSelectedDeliveryOptionsUpdatePayload {
+  cart: Cart
+  userErrors: [CartUserError!]!
+  warnings: [CartWarning!]!
+}
+
+"""
+Cart is not ready for payment update and completion.
+"""
+type CartStatusNotReady {
+  cart: Cart
+  errors: [CartOperationError!]!
+}
+
+"""
+Cart is ready for payment update and completion.
+"""
+type CartStatusReady {
+  cart: Cart
+}
+
+"""
+Return type for `cartSubmitForCompletion` mutation.
+"""
+type CartSubmitForCompletionPayload {
+  result: CartSubmitForCompletionResult
+  userErrors: [CartUserError!]!
+}
+
+"""
+Response signifying that the access to cart request is currently being throttled.
+The client can retry after `poll_after`.
+"""
+type CartThrottled {
+  cart: Cart
+  pollAfter: DateTime!
+}
+
+"""
+Represents an error that happens during execution of a cart mutation.
+"""
+type CartUserError implements DisplayableError {
+  code: CartErrorCode
+  field: [String!]
+  message: String!
+}
+
+"""
+A non-blocking issue that occurred during a cart mutation. Unlike errors, warnings don't prevent the mutation from completing but indicate potential problems that may affect the buyer's experience.
+
+Each warning includes a code identifying the issue type, a human-readable message, and a target ID pointing to the affected resource.
+"""
+type CartWarning {
+  code: CartWarningCode!
+  message: String!
+  target: ID!
+}
+
+"""
+A group of products [organized by a merchant](https://help.shopify.com/manual/products/collections) to make their store easier to browse. Collections can help customers discover related products by category, season, promotion, or other criteria.
+
+Query a collection's products with [filtering options](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products) like availability, price range, vendor, and tags. Each collection includes [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) information, an optional [`Image`](https://shopify.dev/docs/api/storefront/current/objects/Image), and supports custom data through [`metafields`](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+"""
+type Collection implements HasMetafields & Node & OnlineStorePublishable & Trackable {
+  description(truncateAt: Int): String!
+  descriptionHtml: HTML!
+  handle: String!
+  id: ID!
+  image: Image
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  onlineStoreUrl: URL
+  products(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductCollectionSortKeys = COLLECTION_DEFAULT, filters: [ProductFilter!]): ProductConnection!
+  seo: SEO!
+  title: String!
+  trackingParameters: String
+  updatedAt: DateTime!
+}
+
+"""
+An auto-generated type for paginating through multiple Collections.
+"""
+type CollectionConnection {
+  edges: [CollectionEdge!]!
+  nodes: [Collection!]!
+  pageInfo: PageInfo!
+  totalCount: UnsignedInt64!
+}
+
+"""
+An auto-generated type which holds one Collection and a cursor during pagination.
+"""
+type CollectionEdge {
+  cursor: String!
+  node: Collection!
+}
+
+"""
+A comment on an article.
+"""
+type Comment implements Node {
+  author: CommentAuthor!
+  content(truncateAt: Int): String!
+  contentHtml: HTML!
+  id: ID!
+}
+
+"""
+The author of a comment.
+"""
+type CommentAuthor {
+  email: String!
+  name: String!
+}
+
+"""
+An auto-generated type for paginating through multiple Comments.
+"""
+type CommentConnection {
+  edges: [CommentEdge!]!
+  nodes: [Comment!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Comment and a cursor during pagination.
+"""
+type CommentEdge {
+  cursor: String!
+  node: Comment!
+}
+
+"""
+A B2B organization that purchases from the shop. In the Storefront API, company information is accessed through the [`PurchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/PurchasingCompany) object on [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity), which provides the associated location and contact for the current purchasing context.
+
+You can store custom data using [metafields](https://shopify.dev/docs/apps/build/metafields).
+"""
+type Company implements HasMetafields & Node {
+  createdAt: DateTime!
+  externalId: String
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  name: String!
+  updatedAt: DateTime!
+}
+
+"""
+A company's main point of contact.
+"""
+type CompanyContact implements Node {
+  createdAt: DateTime!
+  id: ID!
+  locale: String
+  title: String
+  updatedAt: DateTime!
+}
+
+"""
+A branch or office of a [`Company`](https://shopify.dev/docs/api/storefront/current/objects/Company) where B2B customers can place orders. When a B2B customer selects a location after logging in, the Storefront API contextualizes product queries to return location-specific pricing and quantity rules.
+
+Access through the [`PurchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/PurchasingCompany) object, which associates the location with the buyer's [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+"""
+type CompanyLocation implements HasMetafields & Node {
+  createdAt: DateTime!
+  externalId: String
+  id: ID!
+  locale: String
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  name: String!
+  updatedAt: DateTime!
+}
+
+"""
+The action for the 3DS payment redirect.
+"""
+type CompletePaymentChallenge {
+  redirectUrl: URL
+}
+
+"""
+An error that occurred during a cart completion attempt.
+"""
+type CompletionError {
+  code: CompletionErrorCode!
+  message: String
+}
+
+"""
+Represents information about the grouped merchandise in the cart.
+"""
+type ComponentizableCartLine implements BaseCartLine & Node {
+  attribute(key: String!): Attribute
+  attributes: [Attribute!]!
+  cost: CartLineCost!
+  discountAllocations: [CartDiscountAllocation!]!
+  estimatedCost: CartLineEstimatedCost! @deprecated
+  id: ID!
+  lineComponents: [CartLine!]!
+  merchandise: Merchandise!
+  quantity: Int!
+  sellingPlanAllocation: SellingPlanAllocation
+}
+
+"""
+Details for count of elements.
+"""
+type Count {
+  count: Int!
+  precision: CountPrecision!
+}
+
+"""
+A country with localization settings for a storefront. Includes the country's currency, available languages, default language, and unit system (metric or imperial).
+
+Access countries through the [localization](https://shopify.dev/docs/api/storefront/current/queries/localization) query, which returns both the list of available countries and the currently active country. Use the [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context) directive to change the active country context.
+"""
+type Country {
+  availableLanguages: [Language!]!
+  currency: Currency!
+  defaultLanguage: Language!
+  isoCode: CountryCode!
+  market: Market @deprecated
+  name: String!
+  unitSystem: UnitSystem!
+}
+
+"""
+A currency.
+"""
+type Currency {
+  isoCode: CurrencyCode!
+  name: String!
+  symbol: String!
+}
+
+"""
+A customer account with the shop. Includes data such as contact information, [addresses](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress) and marketing preferences for logged-in customers, so they don't have to provide these details at every checkout.
+
+Access the customer through the [`customer`](https://shopify.dev/docs/api/storefront/current/queries/customer) query using a customer access token obtained from the [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate) mutation.
+
+The object implements the [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields) interface, enabling retrieval of [custom data](https://shopify.dev/docs/apps/build/custom-data) associated with the customer.
+"""
+type Customer implements HasMetafields {
+  acceptsMarketing: Boolean!
+  addresses(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): MailingAddressConnection!
+  avatarUrl: String
+  createdAt: DateTime!
+  defaultAddress: MailingAddress
+  displayName: String!
+  email: String
+  firstName: String
+  id: ID!
+  lastName: String
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  numberOfOrders: UnsignedInt64!
+  orders(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: OrderSortKeys = ID, query: String): OrderConnection!
+  phone: String
+  socialLoginProvider: SocialLoginProvider
+  tags: [String!]!
+  updatedAt: DateTime!
+}
+
+"""
+A unique authentication token that identifies a logged-in customer and authorizes modifications to the [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer) object. The token is required for customer-specific operations like updating profile information or managing addresses.
+
+Tokens have an expiration date and must be renewed using [`customerAccessTokenRenew`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenRenew) before they expire. Create tokens with [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate) using legacy customer account authentication (email and password), or with [`customerAccessTokenCreateWithMultipass`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreateWithMultipass) for single sign-on flows.
+"""
+type CustomerAccessToken {
+  accessToken: String!
+  expiresAt: DateTime!
+}
+
+"""
+Return type for `customerAccessTokenCreate` mutation.
+"""
+type CustomerAccessTokenCreatePayload {
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerAccessTokenCreateWithMultipass` mutation.
+"""
+type CustomerAccessTokenCreateWithMultipassPayload {
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+}
+
+"""
+Return type for `customerAccessTokenDelete` mutation.
+"""
+type CustomerAccessTokenDeletePayload {
+  deletedAccessToken: String
+  deletedCustomerAccessTokenId: String
+  userErrors: [UserError!]!
+}
+
+"""
+Return type for `customerAccessTokenRenew` mutation.
+"""
+type CustomerAccessTokenRenewPayload {
+  customerAccessToken: CustomerAccessToken
+  userErrors: [UserError!]!
+}
+
+"""
+Return type for `customerActivateByUrl` mutation.
+"""
+type CustomerActivateByUrlPayload {
+  customer: Customer
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+}
+
+"""
+Return type for `customerActivate` mutation.
+"""
+type CustomerActivatePayload {
+  customer: Customer
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerAddressCreate` mutation.
+"""
+type CustomerAddressCreatePayload {
+  customerAddress: MailingAddress
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerAddressDelete` mutation.
+"""
+type CustomerAddressDeletePayload {
+  customerUserErrors: [CustomerUserError!]!
+  deletedCustomerAddressId: String
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerAddressUpdate` mutation.
+"""
+type CustomerAddressUpdatePayload {
+  customerAddress: MailingAddress
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerCreate` mutation.
+"""
+type CustomerCreatePayload {
+  customer: Customer
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerDefaultAddressUpdate` mutation.
+"""
+type CustomerDefaultAddressUpdatePayload {
+  customer: Customer
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerRecover` mutation.
+"""
+type CustomerRecoverPayload {
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerResetByUrl` mutation.
+"""
+type CustomerResetByUrlPayload {
+  customer: Customer
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerReset` mutation.
+"""
+type CustomerResetPayload {
+  customer: Customer
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Return type for `customerUpdate` mutation.
+"""
+type CustomerUpdatePayload {
+  customer: Customer
+  customerAccessToken: CustomerAccessToken
+  customerUserErrors: [CustomerUserError!]!
+  userErrors: [UserError!]! @deprecated
+}
+
+"""
+Represents an error that happens during execution of a customer mutation.
+"""
+type CustomerUserError implements DisplayableError {
+  code: CustomerErrorCode
+  field: [String!]
+  message: String!
+}
+
+"""
+The calculated discount amount applied to a line item or shipping line. While a [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication) captures the discount's rules and intentions, the allocation shows how much was actually deducted.
+
+Each allocation includes the discounted amount and a reference to the originating discount application.
+"""
+type DiscountAllocation {
+  allocatedAmount: MoneyV2!
+  discountApplication: DiscountApplication!
+}
+
+"""
+An auto-generated type for paginating through multiple DiscountApplications.
+"""
+type DiscountApplicationConnection {
+  edges: [DiscountApplicationEdge!]!
+  nodes: [DiscountApplication!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one DiscountApplication and a cursor during pagination.
+"""
+type DiscountApplicationEdge {
+  cursor: String!
+  node: DiscountApplication!
+}
+
+"""
+Records the configuration and intent of a [discount code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes) when a customer applies it. This includes the code string, allocation method, target type, and discount value at the time of application. The [`applicable`](https://shopify.dev/docs/api/storefront/latest/objects/DiscountCodeApplication#field-DiscountCodeApplication.fields.applicable) field indicates whether the code was successfully applied.
+
+> Note:
+> To see the actual amounts discounted on specific line items or shipping lines, use the [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation) object instead.
+"""
+type DiscountCodeApplication implements DiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  applicable: Boolean!
+  code: String!
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  value: PricingValue!
+}
+
+"""
+A web address associated with a shop. The [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop) object's [`primaryDomain`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.primaryDomain) field returns this to identify the shop's online store URL.
+"""
+type Domain {
+  host: String!
+  sslEnabled: Boolean!
+  url: URL!
+}
+
+"""
+Represents a video hosted outside of Shopify.
+"""
+type ExternalVideo implements Media & Node {
+  alt: String
+  embedUrl: URL!
+  embeddedUrl: URL! @deprecated
+  host: MediaHost!
+  id: ID!
+  mediaContentType: MediaContentType!
+  originUrl: URL!
+  presentation: MediaPresentation
+  previewImage: Image
+}
+
+"""
+A filter option available on collection and search results pages. Each filter includes a type, display label, and selectable values that customers can use to narrow down products.
+
+The [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue) objects contain an [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input) field that you can combine to [build dynamic filtering queries](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products). Merchants [configure available filters](https://help.shopify.com/manual/online-store/search-and-discovery/filters) using the Shopify Search & Discovery app.
+"""
+type Filter {
+  id: String!
+  label: String!
+  presentation: FilterPresentation
+  type: FilterType!
+  values: [FilterValue!]!
+}
+
+"""
+A selectable option within a [`Filter`](https://shopify.dev/docs/api/storefront/current/objects/Filter), such as a specific color, size, or product type. Each value includes a count of matching results and a human-readable label for display.
+
+The [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input) field provides ready-to-use JSON for building dynamic filtering interfaces. You can combine the `input` values from multiple selected [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue) objects to construct filter queries. Visual representations are available through the [`image`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.image) or [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch) fields when the parent filter's presentation type supports them.
+"""
+type FilterValue {
+  count: Int!
+  id: String!
+  image: MediaImage
+  input: JSON!
+  label: String!
+  swatch: Swatch
+}
+
+"""
+A shipment of one or more items in an order. Accessed through the [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order) object's [`successfulFulfillments`](https://shopify.dev/docs/api/storefront/current/objects/Order#field-Order.fields.successfulFulfillments) field.
+
+Each fulfillment includes the line items that shipped, the tracking company name, and tracking details like numbers and URLs. An order can have multiple fulfillments when items ship separately or from different locations.
+"""
+type Fulfillment {
+  fulfillmentLineItems(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): FulfillmentLineItemConnection!
+  trackingCompany: String
+  trackingInfo(first: Int): [FulfillmentTrackingInfo!]!
+}
+
+"""
+Records how many units of an [`OrderLineItem`](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem) were included in a [`Fulfillment`](https://shopify.dev/docs/api/storefront/current/objects/Fulfillment). Each order line item has at most one fulfillment line item per fulfillment.
+"""
+type FulfillmentLineItem {
+  lineItem: OrderLineItem!
+  quantity: Int!
+}
+
+"""
+An auto-generated type for paginating through multiple FulfillmentLineItems.
+"""
+type FulfillmentLineItemConnection {
+  edges: [FulfillmentLineItemEdge!]!
+  nodes: [FulfillmentLineItem!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination.
+"""
+type FulfillmentLineItemEdge {
+  cursor: String!
+  node: FulfillmentLineItem!
+}
+
+"""
+Tracking information associated with the fulfillment.
+"""
+type FulfillmentTrackingInfo {
+  number: String
+  url: URL
+}
+
+"""
+Any file that doesn't fit into a designated type like image or video. For example, a PDF or JSON document. Use this object to manage files in a merchant's store.
+
+Generic files are commonly referenced through [file reference metafields](https://shopify.dev/docs/apps/build/metafields/list-of-data-types) and returned as part of the [`MetafieldReference`](https://shopify.dev/docs/api/storefront/current/unions/MetafieldReference) union.
+
+Includes the file's URL, MIME type, size in bytes, and an optional preview image.
+"""
+type GenericFile implements Node {
+  alt: String
+  id: ID!
+  mimeType: String
+  originalFileSize: Int
+  previewImage: Image
+  url: URL
+}
+
+"""
+An image resource with URL, dimensions, and transformation options. Used for product images, collection images, media previews, and other visual content throughout the storefront.
+
+The [`url`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.url) field accepts an [`ImageTransformInput`](https://shopify.dev/docs/api/storefront/current/input-objects/ImageTransformInput) argument for resizing, cropping, scaling for retina displays, and converting between image formats. Use the [`thumbhash`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.thumbhash) field to display lightweight placeholders while images load.
+"""
+type Image {
+  altText: String
+  height: Int
+  id: ID
+  originalSrc: URL! @deprecated
+  src: URL! @deprecated
+  thumbhash: String
+  transformedSrc(maxWidth: Int, maxHeight: Int, crop: CropRegion, scale: Int = 1, preferredContentType: ImageContentType): URL! @deprecated
+  url(transform: ImageTransformInput): URL!
+  width: Int
+}
+
+"""
+An auto-generated type for paginating through multiple Images.
+"""
+type ImageConnection {
+  edges: [ImageEdge!]!
+  nodes: [Image!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Image and a cursor during pagination.
+"""
+type ImageEdge {
+  cursor: String!
+  node: Image!
+}
+
+"""
+Provide details about the contexts influenced by the @inContext directive on a field.
+"""
+type InContextAnnotation {
+  description: String!
+  type: InContextAnnotationType!
+}
+
+"""
+This gives information about the type of context that impacts a field. For example, for a query with @inContext(language: "EN"), the type would point to the name: LanguageCode and kind: ENUM.
+"""
+type InContextAnnotationType {
+  kind: String!
+  name: String!
+}
+
+"""
+A language available for a localized storefront experience. Provides the language name in both its native form (endonym) and translated into the current language, along with its [`LanguageCode`](https://shopify.dev/docs/api/storefront/current/enums/LanguageCode).
+
+Returned by the [`Localization`](https://shopify.dev/docs/api/storefront/current/objects/Localization) and [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country) objects to indicate available and active languages. Pass the `isoCode` to the [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context) directive to retrieve translated content in that language.
+"""
+type Language {
+  endonymName: String!
+  isoCode: LanguageCode!
+  name: String!
+}
+
+"""
+Information about the shop's configured localized experiences, including available countries and languages. The [`country`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.country) and [`language`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.language) fields reflect the active localization context, which you can change using the `@inContext` directive on queries.
+
+Use [`availableCountries`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableCountries) to list all countries with enabled localized experiences, and [`availableLanguages`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableLanguages) to get languages available for the currently active country. Each [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country) includes its own currency, unit system, and available languages.
+"""
+type Localization {
+  availableCountries: [Country!]!
+  availableLanguages: [Language!]!
+  country: Country!
+  language: Language!
+  market: Market! @deprecated
+}
+
+"""
+A physical store location where product inventory is held and that supports in-store pickup. Provides the location's name, address, and geographic coordinates for proximity-based sorting. Use with [`StoreAvailability`](https://shopify.dev/docs/api/storefront/current/objects/StoreAvailability) to show customers where a [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) is available for pickup. 
+
+Learn more about [supporting local pickup on storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
+"""
+type Location implements HasMetafields & Node {
+  address: LocationAddress!
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  name: String!
+}
+
+"""
+Represents the address of a location.
+"""
+type LocationAddress {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  countryCode: String
+  formatted: [String!]!
+  latitude: Float
+  longitude: Float
+  phone: String
+  province: String
+  provinceCode: String
+  zip: String
+}
+
+"""
+An auto-generated type for paginating through multiple Locations.
+"""
+type LocationConnection {
+  edges: [LocationEdge!]!
+  nodes: [Location!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Location and a cursor during pagination.
+"""
+type LocationEdge {
+  cursor: String!
+  node: Location!
+}
+
+"""
+A physical mailing address associated with a [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer) or [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order). Stores standard address components including street address, city, province, country, and postal code, along with customer name and company information.
+
+The address includes geographic coordinates and provides pre-formatted output through the [`formatted`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress#field-MailingAddress.fields.formatted) field, which can optionally include or exclude name and company details.
+"""
+type MailingAddress implements Node {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  country: String
+  countryCode: String @deprecated
+  countryCodeV2: CountryCode
+  firstName: String
+  formatted(withName: Boolean = false, withCompany: Boolean = true): [String!]!
+  formattedArea: String
+  id: ID!
+  lastName: String
+  latitude: Float
+  longitude: Float
+  name: String
+  phone: String
+  province: String
+  provinceCode: String
+  zip: String
+}
+
+"""
+An auto-generated type for paginating through multiple MailingAddresses.
+"""
+type MailingAddressConnection {
+  edges: [MailingAddressEdge!]!
+  nodes: [MailingAddress!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one MailingAddress and a cursor during pagination.
+"""
+type MailingAddressEdge {
+  cursor: String!
+  node: MailingAddress!
+}
+
+"""
+A discount created manually by a merchant, as opposed to [automatic discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts) or [discount codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes). Implements the [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication) interface and includes a title, optional description, and the discount value as either a fixed amount or percentage.
+"""
+type ManualDiscountApplication implements DiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  description: String
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  title: String!
+  value: PricingValue!
+}
+
+"""
+An audience of buyers that a merchant targets for sales. Audiences can include geographic regions, company locations, and retail locations. Markets enable localized shopping experiences with region-specific languages, currencies, and pricing.
+
+Each market has a unique [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Market#field-Market.fields.handle) for identification and supports custom data through [`metafields`](https://shopify.dev/docs/api/storefront/current/objects/Metafield). Learn more about [building localized experiences with Shopify Markets](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets).
+"""
+type Market implements HasMetafields & Node {
+  handle: String!
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+}
+
+"""
+An auto-generated type for paginating through multiple Media.
+"""
+type MediaConnection {
+  edges: [MediaEdge!]!
+  nodes: [Media!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Media and a cursor during pagination.
+"""
+type MediaEdge {
+  cursor: String!
+  node: Media!
+}
+
+"""
+An image hosted on Shopify's content delivery network (CDN). Used for product images, brand logos, and other visual content across the storefront.
+
+The [`image`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage#field-MediaImage.fields.image) field provides the actual image data with transformation options. Implements the [`Media`](https://shopify.dev/docs/api/storefront/current/interfaces/Media) interface alongside other media types like [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video) and [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d).
+"""
+type MediaImage implements Media & Node {
+  alt: String
+  id: ID!
+  image: Image
+  mediaContentType: MediaContentType!
+  presentation: MediaPresentation
+  previewImage: Image
+}
+
+"""
+A media presentation.
+"""
+type MediaPresentation implements Node {
+  asJson(format: MediaPresentationFormat!): JSON
+  id: ID! @deprecated
+}
+
+"""
+A navigation structure for building store [menus](https://help.shopify.com/manual/online-store/menus-and-links). Each menu contains [`MenuItem`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem) objects that can be nested to create multi-level navigation hierarchies.
+
+Menu items can link to [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection), [products](https://shopify.dev/docs/api/storefront/current/objects/Product), [pages](https://shopify.dev/docs/api/storefront/current/objects/Page), [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or external URLs. Use the [`menu`](https://shopify.dev/docs/api/storefront/current/queries/menu) query to retrieve a menu by its handle.
+"""
+type Menu implements Node {
+  handle: String!
+  id: ID!
+  items: [MenuItem!]!
+  itemsCount: Int!
+  title: String!
+}
+
+"""
+A navigation link within a [`Menu`](https://shopify.dev/docs/api/storefront/current/objects/Menu). Each item has a title, URL, and can link to store resources like [products](https://shopify.dev/docs/api/storefront/current/objects/Product), [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection), [pages](https://shopify.dev/docs/api/storefront/current/objects/Page), [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or external URLs.
+
+Menu items support nested hierarchies through the [`items`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.items) field, enabling dropdown or multi-level navigation structures. The [`tags`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.tags) field filters results when the item links to a collection specifically.
+"""
+type MenuItem implements Node {
+  id: ID!
+  items: [MenuItem!]!
+  resource: MenuItemResource
+  resourceId: ID
+  tags: [String!]!
+  title: String!
+  type: MenuItemType!
+  url: URL
+}
+
+"""
+[Custom metadata](https://shopify.dev/docs/apps/build/metafields) attached to a Shopify resource such as a [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product), [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection), or [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer). Each metafield is identified by a namespace and key, and stores a value with an associated type.
+
+Values are always stored as strings, but the [`type`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.type) field indicates how to interpret the data. When a metafield's type is a resource reference, use the [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference) or [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references) fields to retrieve the linked objects. Access metafields on any resource that implements the [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields) interface.
+"""
+type Metafield implements Node {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  key: String!
+  list: Boolean!
+  namespace: String!
+  parentResource: MetafieldParentResource!
+  reference: MetafieldReference
+  references(first: Int, after: String, last: Int, before: String): MetafieldReferenceConnection
+  type: String!
+  updatedAt: DateTime!
+  value: String!
+}
+
+"""
+An error that occurs during the execution of cart metafield deletion.
+"""
+type MetafieldDeleteUserError implements DisplayableError {
+  code: MetafieldDeleteErrorCode
+  field: [String!]
+  message: String!
+}
+
+"""
+An auto-generated type for paginating through multiple MetafieldReferences.
+"""
+type MetafieldReferenceConnection {
+  edges: [MetafieldReferenceEdge!]!
+  nodes: [MetafieldReference!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one MetafieldReference and a cursor during pagination.
+"""
+type MetafieldReferenceEdge {
+  cursor: String!
+  node: MetafieldReference!
+}
+
+"""
+An error that occurs during the execution of `MetafieldsSet`.
+"""
+type MetafieldsSetUserError implements DisplayableError {
+  code: MetafieldsSetUserErrorCode
+  elementIndex: Int
+  field: [String!]
+  message: String!
+}
+
+"""
+An instance of [custom structured data](https://shopify.dev/docs/apps/build/metaobjects) defined by a metaobject definition. Metaobjects store reusable content that extends beyond standard Shopify resources, such as size charts, author profiles, or custom content sections.
+
+Each metaobject contains fields that match the types and validation rules specified in its definition. [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield) references can point to metaobjects, connecting custom data with products, collections, and other resources. If the definition has the `renderable` capability, then the [`seo`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.seo) field provides SEO metadata. If it has the `online_store` capability, then the [`onlineStoreUrl`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.onlineStoreUrl) field returns the public URL.
+"""
+type Metaobject implements Node & OnlineStorePublishable {
+  field(key: String!): MetaobjectField
+  fields: [MetaobjectField!]!
+  handle: String!
+  id: ID!
+  onlineStoreUrl: URL
+  seo: MetaobjectSEO
+  type: String!
+  updatedAt: DateTime!
+}
+
+"""
+An auto-generated type for paginating through multiple Metaobjects.
+"""
+type MetaobjectConnection {
+  edges: [MetaobjectEdge!]!
+  nodes: [Metaobject!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Metaobject and a cursor during pagination.
+"""
+type MetaobjectEdge {
+  cursor: String!
+  node: Metaobject!
+}
+
+"""
+The value of a field within a [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject). For fields that reference other resources, use the [`reference`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.reference) field for single references or [`references`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.references) for lists.
+"""
+type MetaobjectField {
+  key: String!
+  reference: MetafieldReference
+  references(first: Int, after: String, last: Int, before: String): MetafieldReferenceConnection
+  type: String!
+  value: String
+}
+
+"""
+SEO information for a metaobject.
+"""
+type MetaobjectSEO {
+  description: MetaobjectField
+  title: MetaobjectField
+}
+
+"""
+Represents a Shopify hosted 3D model.
+"""
+type Model3d implements Media & Node {
+  alt: String
+  id: ID!
+  mediaContentType: MediaContentType!
+  presentation: MediaPresentation
+  previewImage: Image
+  sources: [Model3dSource!]!
+}
+
+"""
+Represents a source for a Shopify hosted 3d model.
+"""
+type Model3dSource {
+  filesize: Int!
+  format: String!
+  mimeType: String!
+  url: String!
+}
+
+"""
+A precise monetary value with its associated currency. Combines a decimal amount with a three-letter [`CurrencyCode`](https://shopify.dev/docs/api/storefront/current/enums/CurrencyCode) to express prices, costs, and other financial values. For example, 12.99 USD.
+"""
+type MoneyV2 {
+  amount: Decimal!
+  currencyCode: CurrencyCode!
+}
+
+"""
+The schema’s entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start.
+"""
+type Mutation {
+  cartAttributesUpdate(attributes: [AttributeInput!]!, cartId: ID!): CartAttributesUpdatePayload
+  cartBillingAddressUpdate(cartId: ID!, billingAddress: MailingAddressInput): CartBillingAddressUpdatePayload
+  cartBuyerIdentityUpdate(cartId: ID!, buyerIdentity: CartBuyerIdentityInput!): CartBuyerIdentityUpdatePayload
+  cartClone(cartId: ID!): CartClonePayload
+  cartCreate(input: CartInput): CartCreatePayload
+  cartDeliveryAddressesAdd(cartId: ID!, addresses: [CartSelectableAddressInput!]!): CartDeliveryAddressesAddPayload
+  cartDeliveryAddressesRemove(cartId: ID!, addressIds: [ID!]!): CartDeliveryAddressesRemovePayload
+  cartDeliveryAddressesReplace(cartId: ID!, addresses: [CartSelectableAddressInput!]!): CartDeliveryAddressesReplacePayload
+  cartDeliveryAddressesUpdate(cartId: ID!, addresses: [CartSelectableAddressUpdateInput!]!): CartDeliveryAddressesUpdatePayload
+  cartDiscountCodesUpdate(cartId: ID!, discountCodes: [String!]!): CartDiscountCodesUpdatePayload
+  cartGiftCardCodesAdd(cartId: ID!, giftCardCodes: [String!]!): CartGiftCardCodesAddPayload
+  cartGiftCardCodesRemove(cartId: ID!, appliedGiftCardIds: [ID!]!): CartGiftCardCodesRemovePayload
+  cartGiftCardCodesUpdate(cartId: ID!, giftCardCodes: [String!]!): CartGiftCardCodesUpdatePayload
+  cartLinesAdd(cartId: ID!, lines: [CartLineInput!]!): CartLinesAddPayload
+  cartLinesRemove(cartId: ID!, lineIds: [ID!]!): CartLinesRemovePayload
+  cartLinesUpdate(cartId: ID!, lines: [CartLineUpdateInput!]!): CartLinesUpdatePayload
+  cartMetafieldDelete(input: CartMetafieldDeleteInput!): CartMetafieldDeletePayload
+  cartMetafieldsSet(metafields: [CartMetafieldsSetInput!]!): CartMetafieldsSetPayload
+  cartNoteUpdate(cartId: ID!, note: String!): CartNoteUpdatePayload
+  cartPaymentUpdate(cartId: ID!, payment: CartPaymentInput!): CartPaymentUpdatePayload
+  cartPrepareForCompletion(cartId: ID!): CartPrepareForCompletionPayload
+  cartRemovePersonalData(cartId: ID!): CartRemovePersonalDataPayload
+  cartSelectedDeliveryOptionsUpdate(cartId: ID!, selectedDeliveryOptions: [CartSelectedDeliveryOptionInput!]!): CartSelectedDeliveryOptionsUpdatePayload
+  cartSubmitForCompletion(cartId: ID!, attemptToken: String!): CartSubmitForCompletionPayload
+  customerAccessTokenCreate(input: CustomerAccessTokenCreateInput!): CustomerAccessTokenCreatePayload
+  customerAccessTokenCreateWithMultipass(multipassToken: String!): CustomerAccessTokenCreateWithMultipassPayload
+  customerAccessTokenDelete(customerAccessToken: String!): CustomerAccessTokenDeletePayload
+  customerAccessTokenRenew(customerAccessToken: String!): CustomerAccessTokenRenewPayload
+  customerActivate(id: ID!, input: CustomerActivateInput!): CustomerActivatePayload
+  customerActivateByUrl(activationUrl: URL!, password: String!): CustomerActivateByUrlPayload
+  customerAddressCreate(customerAccessToken: String!, address: MailingAddressInput!): CustomerAddressCreatePayload
+  customerAddressDelete(id: ID!, customerAccessToken: String!): CustomerAddressDeletePayload
+  customerAddressUpdate(customerAccessToken: String!, id: ID!, address: MailingAddressInput!): CustomerAddressUpdatePayload
+  customerCreate(input: CustomerCreateInput!): CustomerCreatePayload
+  customerDefaultAddressUpdate(customerAccessToken: String!, addressId: ID!): CustomerDefaultAddressUpdatePayload
+  customerRecover(email: String!): CustomerRecoverPayload
+  customerReset(id: ID!, input: CustomerResetInput!): CustomerResetPayload
+  customerResetByUrl(resetUrl: URL!, password: String!): CustomerResetByUrlPayload
+  customerUpdate(customerAccessToken: String!, customer: CustomerUpdateInput!): CustomerUpdatePayload
+  shopPayPaymentRequestSessionCreate(sourceIdentifier: String!, paymentRequest: ShopPayPaymentRequestInput!): ShopPayPaymentRequestSessionCreatePayload
+  shopPayPaymentRequestSessionSubmit(token: String!, paymentRequest: ShopPayPaymentRequestInput!, idempotencyKey: String!, orderName: String): ShopPayPaymentRequestSessionSubmitPayload
+}
+
+"""
+An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information.
+"""
+type Order implements HasMetafields & Node {
+  billingAddress: MailingAddress
+  cancelReason: OrderCancelReason
+  canceledAt: DateTime
+  currencyCode: CurrencyCode!
+  currentSubtotalPrice: MoneyV2!
+  currentTotalDuties: MoneyV2
+  currentTotalPrice: MoneyV2!
+  currentTotalShippingPrice: MoneyV2!
+  currentTotalTax: MoneyV2!
+  customAttributes: [Attribute!]!
+  customerLocale: String
+  customerUrl: URL
+  discountApplications(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): DiscountApplicationConnection!
+  edited: Boolean!
+  email: String
+  financialStatus: OrderFinancialStatus
+  fulfillmentStatus: OrderFulfillmentStatus!
+  id: ID!
+  lineItems(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): OrderLineItemConnection!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  name: String!
+  orderNumber: Int!
+  originalTotalDuties: MoneyV2
+  originalTotalPrice: MoneyV2!
+  phone: String
+  processedAt: DateTime!
+  shippingAddress: MailingAddress
+  shippingDiscountAllocations: [DiscountAllocation!]!
+  statusUrl: URL!
+  subtotalPrice: MoneyV2
+  subtotalPriceV2: MoneyV2 @deprecated
+  successfulFulfillments(first: Int): [Fulfillment!]
+  totalPrice: MoneyV2!
+  totalPriceV2: MoneyV2! @deprecated
+  totalRefunded: MoneyV2!
+  totalRefundedV2: MoneyV2! @deprecated
+  totalShippingPrice: MoneyV2!
+  totalShippingPriceV2: MoneyV2! @deprecated
+  totalTax: MoneyV2
+  totalTaxV2: MoneyV2 @deprecated
+}
+
+"""
+An auto-generated type for paginating through multiple Orders.
+"""
+type OrderConnection {
+  edges: [OrderEdge!]!
+  nodes: [Order!]!
+  pageInfo: PageInfo!
+  totalCount: UnsignedInt64!
+}
+
+"""
+An auto-generated type which holds one Order and a cursor during pagination.
+"""
+type OrderEdge {
+  cursor: String!
+  node: Order!
+}
+
+"""
+Represents a single line in an order. There is one line item for each distinct product variant.
+"""
+type OrderLineItem {
+  currentQuantity: Int!
+  customAttributes: [Attribute!]!
+  discountAllocations: [DiscountAllocation!]!
+  discountedTotalPrice: MoneyV2!
+  originalTotalPrice: MoneyV2!
+  quantity: Int!
+  title: String!
+  variant: ProductVariant
+}
+
+"""
+An auto-generated type for paginating through multiple OrderLineItems.
+"""
+type OrderLineItemConnection {
+  edges: [OrderLineItemEdge!]!
+  nodes: [OrderLineItem!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one OrderLineItem and a cursor during pagination.
+"""
+type OrderLineItemEdge {
+  cursor: String!
+  node: OrderLineItem!
+}
+
+"""
+A [custom content page](https://help.shopify.com/manual/online-store/add-edit-pages) on a merchant's store. Pages display HTML-formatted content, such as "About Us", contact details, or store policies.
+
+Each page has a unique [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Page#field-Page.fields.handle) for URL routing and includes [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) information for search engine optimization. Pages support [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield) attachments for storing additional custom data.
+"""
+type Page implements HasMetafields & Node & OnlineStorePublishable & Trackable {
+  body: HTML!
+  bodySummary: String!
+  createdAt: DateTime!
+  handle: String!
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  onlineStoreUrl: URL
+  seo: SEO
+  title: String!
+  trackingParameters: String
+  updatedAt: DateTime!
+}
+
+"""
+An auto-generated type for paginating through multiple Pages.
+"""
+type PageConnection {
+  edges: [PageEdge!]!
+  nodes: [Page!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Page and a cursor during pagination.
+"""
+type PageEdge {
+  cursor: String!
+  node: Page!
+}
+
+"""
+Returns information about pagination in a connection, in accordance with the
+[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+For more information, please read our [GraphQL Pagination Usage Guide](https://shopify.dev/api/usage/pagination-graphql).
+"""
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""
+Type for paginating through multiple sitemap's resources.
+"""
+type PaginatedSitemapResources {
+  hasNextPage: Boolean!
+  items: [SitemapResourceInterface!]!
+}
+
+"""
+Settings related to payments.
+"""
+type PaymentSettings {
+  acceptedCardBrands: [CardBrand!]!
+  cardVaultUrl: URL!
+  countryCode: CountryCode!
+  currencyCode: CurrencyCode!
+  enabledPresentmentCurrencies: [CurrencyCode!]!
+  shopifyPaymentsAccountId: String
+  supportedDigitalWallets: [DigitalWallet!]!
+}
+
+"""
+Returned by the [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) query to power type-ahead search experiences. Includes matching [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product), [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection), [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article) objects, along with query suggestions that help customers refine their search.
+"""
+type PredictiveSearchResult {
+  articles: [Article!]!
+  collections: [Collection!]!
+  pages: [Page!]!
+  products: [Product!]!
+  queries: [SearchQuerySuggestion!]!
+}
+
+"""
+A percentage discount value applied to cart items or orders. Returned as part of the [`PricingValue`](https://shopify.dev/docs/api/storefront/current/unions/PricingValue) union on [discount applications](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication), where it represents discounts calculated as a percentage off rather than a [fixed amount](https://shopify.dev/docs/api/storefront/current/objects/MoneyV2).
+"""
+type PricingPercentageValue {
+  percentage: Float!
+}
+
+"""
+Represents an item listed in a shop's catalog.
+
+Products support multiple [product variants](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant), representing different versions of the same product, and can include various [media](https://shopify.dev/docs/api/storefront/current/interfaces/Media) types. Use the [`selectedOrFirstAvailableVariant`](https://shopify.dev/docs/api/storefront/current/objects/Product#field-Product.fields.selectedOrFirstAvailableVariant) or [`variantBySelectedOptions`](https://shopify.dev/docs/api/storefront/current/objects/Product#field-Product.fields.variantBySelectedOptions) fields to help customers find the right variant based on their selections.
+
+Products can be organized into [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection), associated with [selling plans](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanGroup) for subscriptions, and extended with custom data through [metafields](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+
+Learn more about working with [products and collections](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections).
+"""
+type Product implements HasMetafields & Node & OnlineStorePublishable & Trackable {
+  adjacentVariants(selectedOptions: [SelectedOptionInput!], ignoreUnknownOptions: Boolean = true, caseInsensitiveMatch: Boolean = false): [ProductVariant!]!
+  availableForSale: Boolean!
+  category: TaxonomyCategory
+  collections(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): CollectionConnection!
+  compareAtPriceRange: ProductPriceRange!
+  createdAt: DateTime!
+  description(truncateAt: Int): String!
+  descriptionHtml: HTML!
+  encodedVariantAvailability: String
+  encodedVariantExistence: String
+  featuredImage: Image
+  handle: String!
+  id: ID!
+  images(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductImageSortKeys = POSITION): ImageConnection!
+  isGiftCard: Boolean!
+  media(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductMediaSortKeys = POSITION): MediaConnection!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  onlineStoreUrl: URL
+  options(first: Int): [ProductOption!]!
+  priceRange: ProductPriceRange!
+  productType: String!
+  publishedAt: DateTime!
+  requiresSellingPlan: Boolean!
+  selectedOrFirstAvailableVariant(selectedOptions: [SelectedOptionInput!], ignoreUnknownOptions: Boolean = true, caseInsensitiveMatch: Boolean = false): ProductVariant
+  sellingPlanGroups(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): SellingPlanGroupConnection!
+  seo: SEO!
+  tags: [String!]!
+  title: String!
+  totalInventory: Int
+  trackingParameters: String
+  updatedAt: DateTime!
+  variantBySelectedOptions(selectedOptions: [SelectedOptionInput!]!, ignoreUnknownOptions: Boolean = false, caseInsensitiveMatch: Boolean = false): ProductVariant
+  variants(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductVariantSortKeys = POSITION): ProductVariantConnection!
+  variantsCount: Count
+  vendor: String!
+}
+
+"""
+An auto-generated type for paginating through multiple Products.
+"""
+type ProductConnection {
+  edges: [ProductEdge!]!
+  filters: [Filter!]!
+  nodes: [Product!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Product and a cursor during pagination.
+"""
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
+"""
+A customizable product attribute that customers select when purchasing, such as "Size", "Color", or "Material". Each option has a name and a set of [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue) objects representing the available choices.
+
+Different combinations of option values create distinct [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) objects. Option values can include visual swatches that display colors or images to help customers make selections. Option names have a 255-character limit.
+
+Learn more about [Shopify's product model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
+"""
+type ProductOption implements Node {
+  id: ID!
+  name: String!
+  optionValues: [ProductOptionValue!]!
+  values: [String!]! @deprecated
+}
+
+"""
+A specific value for a [`ProductOption`](https://shopify.dev/docs/api/storefront/current/objects/ProductOption), such as "Red" or "Blue" for a "Color" option. Option values combine across different options to create [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) objects.
+
+Each value can include a visual swatch that displays a color or image. The [`firstSelectableVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue#field-ProductOptionValue.fields.firstSelectableVariant) field returns the variant that combines this option value with the lowest-position values for all other options. This is useful for building product selection interfaces.
+
+Learn more about [Shopify's product model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
+"""
+type ProductOptionValue implements Node {
+  firstSelectableVariant: ProductVariant
+  id: ID!
+  name: String!
+  swatch: ProductOptionValueSwatch
+}
+
+"""
+A visual representation for a [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue), such as a color or image. Swatches help customers visualize options like "Red" or "Blue" without relying solely on text labels.
+"""
+type ProductOptionValueSwatch {
+  color: Color
+  image: Media
+}
+
+"""
+The minimum and maximum prices across all variants of a [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product).
+"""
+type ProductPriceRange {
+  maxVariantPrice: MoneyV2!
+  minVariantPrice: MoneyV2!
+}
+
+"""
+A specific version of a [product](https://shopify.dev/docs/api/storefront/current/objects/Product) available for sale, differentiated by options like size or color. For example, a small blue t-shirt and a large blue t-shirt are separate variants of the same product. For more information, see the docs on [Shopify's product model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
+
+For products with quantity rules, variants enforce minimum, maximum, and increment constraints on purchases.
+
+Variants also support subscriptions and pre-orders through [selling plan allocations](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation) objects, bundle configurations through [product variant components](https://shopify.dev/docs/api/storefront/current/objects/ProductVariantComponent) objects, and [shop pay installments pricing](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing) for flexible payment options.
+"""
+type ProductVariant implements HasMetafields & Node {
+  availableForSale: Boolean!
+  barcode: String
+  compareAtPrice: MoneyV2
+  compareAtPriceV2: MoneyV2 @deprecated
+  components(first: Int, after: String, last: Int, before: String): ProductVariantComponentConnection!
+  currentlyNotInStock: Boolean!
+  groupedBy(first: Int, after: String, last: Int, before: String): ProductVariantConnection!
+  id: ID!
+  image: Image
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  price: MoneyV2!
+  priceV2: MoneyV2! @deprecated
+  product: Product!
+  quantityAvailable: Int
+  quantityPriceBreaks(first: Int, after: String, last: Int, before: String): QuantityPriceBreakConnection!
+  quantityRule: QuantityRule!
+  requiresComponents: Boolean!
+  requiresShipping: Boolean!
+  selectedOptions: [SelectedOption!]!
+  sellingPlanAllocations(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): SellingPlanAllocationConnection!
+  shopPayInstallmentsPricing: ShopPayInstallmentsProductVariantPricing
+  sku: String
+  storeAvailability(near: GeoCoordinateInput, first: Int, after: String, last: Int, before: String, reverse: Boolean = false): StoreAvailabilityConnection!
+  taxable: Boolean!
+  title: String!
+  unitPrice: MoneyV2
+  unitPriceMeasurement: UnitPriceMeasurement
+  weight: Float
+  weightUnit: WeightUnit!
+}
+
+"""
+An individual product variant included in a [fixed bundle](https://shopify.dev/docs/apps/build/product-merchandising/bundles). Fixed bundles group multiple products together and sell them as a single unit, with the bundle's inventory determined by its components.
+
+Access components through the `ProductVariant` object's [`components`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.components) field.
+"""
+type ProductVariantComponent {
+  productVariant: ProductVariant!
+  quantity: Int!
+}
+
+"""
+An auto-generated type for paginating through multiple ProductVariantComponents.
+"""
+type ProductVariantComponentConnection {
+  edges: [ProductVariantComponentEdge!]!
+  nodes: [ProductVariantComponent!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one ProductVariantComponent and a cursor during pagination.
+"""
+type ProductVariantComponentEdge {
+  cursor: String!
+  node: ProductVariantComponent!
+}
+
+"""
+An auto-generated type for paginating through multiple ProductVariants.
+"""
+type ProductVariantConnection {
+  edges: [ProductVariantEdge!]!
+  nodes: [ProductVariant!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one ProductVariant and a cursor during pagination.
+"""
+type ProductVariantEdge {
+  cursor: String!
+  node: ProductVariant!
+}
+
+"""
+Represents information about the buyer that is interacting with the cart.
+"""
+type PurchasingCompany {
+  company: Company!
+  contact: CompanyContact
+  location: CompanyLocation!
+}
+
+"""
+Quantity price breaks lets you offer different rates that are based on the
+amount of a specific variant being ordered.
+"""
+type QuantityPriceBreak {
+  minimumQuantity: Int!
+  price: MoneyV2!
+}
+
+"""
+An auto-generated type for paginating through multiple QuantityPriceBreaks.
+"""
+type QuantityPriceBreakConnection {
+  edges: [QuantityPriceBreakEdge!]!
+  nodes: [QuantityPriceBreak!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one QuantityPriceBreak and a cursor during pagination.
+"""
+type QuantityPriceBreakEdge {
+  cursor: String!
+  node: QuantityPriceBreak!
+}
+
+"""
+The quantity rule for the product variant in a given context.
+"""
+type QuantityRule {
+  increment: Int!
+  maximum: Int
+  minimum: Int!
+}
+
+"""
+The entry point for all Storefront API queries. Provides access to shop resources including products, collections, carts, and customer data, as well as content like articles and pages. This query acts as the public, top-level type from which all queries must start.
+
+Use individual queries like [`product`](https://shopify.dev/docs/api/storefront/current/queries/product) or [`collection`](https://shopify.dev/docs/api/storefront/current/queries/collection) to fetch specific resources by ID or handle. Use plural queries like [`products`](https://shopify.dev/docs/api/storefront/current/queries/products) or [`collections`](https://shopify.dev/docs/api/storefront/current/queries/collections) to retrieve paginated lists with optional filtering and sorting. The [`search`](https://shopify.dev/docs/api/storefront/current/queries/search) and [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) queries enable storefront search functionality.
+
+Explore queries interactively with the [GraphiQL explorer and sample query kit](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/api-exploration).
+"""
+type QueryRoot {
+  article(id: ID!): Article
+  articles(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ArticleSortKeys = ID, query: String): ArticleConnection!
+  blog(handle: String, id: ID): Blog
+  blogByHandle(handle: String!): Blog @deprecated
+  blogs(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: BlogSortKeys = ID, query: String): BlogConnection!
+  cart(id: ID!): Cart
+  cartCompletionAttempt(attemptId: String!): CartCompletionAttemptResult
+  collection(id: ID, handle: String): Collection
+  collectionByHandle(handle: String!): Collection @deprecated
+  collections(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: CollectionSortKeys = ID, query: String): CollectionConnection!
+  customer(customerAccessToken: String!): Customer
+  localization: Localization!
+  locations(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: LocationSortKeys = ID, near: GeoCoordinateInput): LocationConnection!
+  menu(handle: String!): Menu
+  metaobject(id: ID, handle: MetaobjectHandleInput): Metaobject
+  metaobjects(type: String!, sortKey: String, first: Int, after: String, last: Int, before: String, reverse: Boolean = false): MetaobjectConnection!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  page(handle: String, id: ID): Page
+  pageByHandle(handle: String!): Page @deprecated
+  pages(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: PageSortKeys = ID, query: String): PageConnection!
+  paymentSettings: PaymentSettings!
+  predictiveSearch(limit: Int, limitScope: PredictiveSearchLimitScope, query: String!, searchableFields: [SearchableField!], types: [PredictiveSearchType!], unavailableProducts: SearchUnavailableProductsType): PredictiveSearchResult
+  product(id: ID, handle: String): Product
+  productByHandle(handle: String!): Product @deprecated
+  productRecommendations(productId: ID, productHandle: String, intent: ProductRecommendationIntent = RELATED): [Product!]
+  productTags(first: Int!): StringConnection!
+  productTypes(first: Int!): StringConnection!
+  products(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductSortKeys = ID, query: String): ProductConnection!
+  publicApiVersions: [ApiVersion!]!
+  search(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: SearchSortKeys = RELEVANCE, query: String!, prefix: SearchPrefixQueryType, productFilters: [ProductFilter!], types: [SearchType!], unavailableProducts: SearchUnavailableProductsType): SearchResultItemConnection!
+  shop: Shop!
+  sitemap(type: SitemapType!): Sitemap!
+  urlRedirects(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, query: String): UrlRedirectConnection!
+}
+
+"""
+Search engine optimization metadata for a resource. The title and description appear in search engine results and browser tabs.
+"""
+type SEO {
+  description: String
+  title: String
+}
+
+"""
+A discount application created by a Shopify Script. Implements the [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication) interface and captures the discount's value, allocation method, and targeting rules at the time the script applied it.
+"""
+type ScriptDiscountApplication implements DiscountApplication {
+  allocationMethod: DiscountApplicationAllocationMethod!
+  targetSelection: DiscountApplicationTargetSelection!
+  targetType: DiscountApplicationTargetType!
+  title: String!
+  value: PricingValue!
+}
+
+"""
+A suggested search term returned by the [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) query. Query suggestions help customers refine their searches by showing relevant terms as they type.
+
+The [`text`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.text) field provides the plain suggestion, while [`styledText`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.styledText) includes HTML tags to highlight matching portions. Implements [`Trackable`](https://shopify.dev/docs/api/storefront/current/interfaces/Trackable) for analytics reporting on search traffic origins.
+"""
+type SearchQuerySuggestion implements Trackable {
+  styledText: String!
+  text: String!
+  trackingParameters: String
+}
+
+"""
+An auto-generated type for paginating through multiple SearchResultItems.
+"""
+type SearchResultItemConnection {
+  edges: [SearchResultItemEdge!]!
+  nodes: [SearchResultItem!]!
+  pageInfo: PageInfo!
+  productFilters: [Filter!]!
+  totalCount: Int!
+}
+
+"""
+An auto-generated type which holds one SearchResultItem and a cursor during pagination.
+"""
+type SearchResultItemEdge {
+  cursor: String!
+  node: SearchResultItem!
+}
+
+"""
+A name/value pair representing a product option selection on a variant. The [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) object's [`selectedOptions`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.selectedOptions) field returns this to indicate which options define that variant, such as "Size: Large" or "Color: Red".
+"""
+type SelectedOption {
+  name: String!
+  value: String!
+}
+
+"""
+Represents deferred or recurring purchase options for [products](https://shopify.dev/docs/api/storefront/current/objects/Product) and [product variants](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant), such as subscriptions, pre-orders, or try-before-you-buy. Each selling plan belongs to a [`SellingPlanGroup`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanGroup) and defines billing, pricing, inventory, and delivery policies.
+"""
+type SellingPlan implements HasMetafields {
+  billingPolicy: SellingPlanBillingPolicy
+  checkoutCharge: SellingPlanCheckoutCharge!
+  deliveryPolicy: SellingPlanDeliveryPolicy
+  description: String
+  id: ID!
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  name: String!
+  options: [SellingPlanOption!]!
+  priceAdjustments: [SellingPlanPriceAdjustment!]!
+  recurringDeliveries: Boolean!
+}
+
+"""
+Links a [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) to a [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan), providing the pricing details for that specific combination. Each allocation includes the checkout charge amount, any remaining balance due for the purchase, and up to two price adjustments that show how the selling plan affects the variant's price.
+
+Selling plan allocations are available on product variants and [cart lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine), enabling storefronts to display information such as subscription or purchase option pricing before and during checkout.
+"""
+type SellingPlanAllocation {
+  checkoutChargeAmount: MoneyV2!
+  priceAdjustments: [SellingPlanAllocationPriceAdjustment!]!
+  remainingBalanceChargeAmount: MoneyV2!
+  sellingPlan: SellingPlan!
+}
+
+"""
+An auto-generated type for paginating through multiple SellingPlanAllocations.
+"""
+type SellingPlanAllocationConnection {
+  edges: [SellingPlanAllocationEdge!]!
+  nodes: [SellingPlanAllocation!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlanAllocation and a cursor during pagination.
+"""
+type SellingPlanAllocationEdge {
+  cursor: String!
+  node: SellingPlanAllocation!
+}
+
+"""
+The resulting prices for variants when they're purchased with a specific selling plan.
+"""
+type SellingPlanAllocationPriceAdjustment {
+  compareAtPrice: MoneyV2!
+  perDeliveryPrice: MoneyV2!
+  price: MoneyV2!
+  unitPrice: MoneyV2
+}
+
+"""
+The initial payment due for the purchase.
+"""
+type SellingPlanCheckoutCharge {
+  type: SellingPlanCheckoutChargeType!
+  value: SellingPlanCheckoutChargeValue!
+}
+
+"""
+The percentage value of the price used for checkout charge.
+"""
+type SellingPlanCheckoutChargePercentageValue {
+  percentage: Float!
+}
+
+"""
+An auto-generated type for paginating through multiple SellingPlans.
+"""
+type SellingPlanConnection {
+  edges: [SellingPlanEdge!]!
+  nodes: [SellingPlan!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlan and a cursor during pagination.
+"""
+type SellingPlanEdge {
+  cursor: String!
+  node: SellingPlan!
+}
+
+"""
+A fixed amount that's deducted from the original variant price. For example, $10.00 off.
+"""
+type SellingPlanFixedAmountPriceAdjustment {
+  adjustmentAmount: MoneyV2!
+}
+
+"""
+A fixed price adjustment for a variant that's purchased with a selling plan.
+"""
+type SellingPlanFixedPriceAdjustment {
+  price: MoneyV2!
+}
+
+"""
+A selling method that defines how products can be sold through purchase options like subscriptions, pre-orders, or try-before-you-buy. Groups one or more [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan) objects that share the same selling method and options.
+
+The `SellingPlanGroup` acts as a container for one or more individual `SellingPlan` objects, enabling merchants to offer multiple options (like weekly or monthly deliveries) under one, unified category on a product page.
+"""
+type SellingPlanGroup {
+  appName: String
+  name: String!
+  options: [SellingPlanGroupOption!]!
+  sellingPlans(first: Int, after: String, last: Int, before: String, reverse: Boolean = false): SellingPlanConnection!
+}
+
+"""
+An auto-generated type for paginating through multiple SellingPlanGroups.
+"""
+type SellingPlanGroupConnection {
+  edges: [SellingPlanGroupEdge!]!
+  nodes: [SellingPlanGroup!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlanGroup and a cursor during pagination.
+"""
+type SellingPlanGroupEdge {
+  cursor: String!
+  node: SellingPlanGroup!
+}
+
+"""
+Represents an option on a selling plan group that's available in the drop-down list in the storefront.
+
+Individual selling plans contribute their options to the associated selling plan group. For example, a selling plan group might have an option called `option1: Delivery every`. One selling plan in that group could contribute `option1: 2 weeks` with the pricing for that option, and another selling plan could contribute `option1: 4 weeks`, with different pricing.
+"""
+type SellingPlanGroupOption {
+  name: String!
+  values: [String!]!
+}
+
+"""
+An option provided by a Selling Plan.
+"""
+type SellingPlanOption {
+  name: String
+  value: String
+}
+
+"""
+A percentage amount that's deducted from the original variant price. For example, 10% off.
+"""
+type SellingPlanPercentagePriceAdjustment {
+  adjustmentPercentage: Float!
+}
+
+"""
+Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments. If a variant has multiple price adjustments, then the first price adjustment applies when the variant is initially purchased. The second price adjustment applies after a certain number of orders (specified by the `orderCount` field) are made. If a selling plan doesn't have any price adjustments, then the unadjusted price of the variant is the effective price.
+"""
+type SellingPlanPriceAdjustment {
+  adjustmentValue: SellingPlanPriceAdjustmentValue!
+  orderCount: Int
+}
+
+"""
+The recurring billing policy for the selling plan.
+"""
+type SellingPlanRecurringBillingPolicy {
+  interval: SellingPlanInterval!
+  intervalCount: Int!
+}
+
+"""
+The recurring delivery policy for the selling plan.
+"""
+type SellingPlanRecurringDeliveryPolicy {
+  interval: SellingPlanInterval!
+  intervalCount: Int!
+}
+
+"""
+The central hub for store-wide settings and information accessible through the Storefront API. Provides the shop's name, description, and branding configuration including logos and colors through the [`Brand`](https://shopify.dev/docs/api/storefront/current/objects/Brand) object.
+
+Access store policies such as privacy, refund, shipping, and terms of service via [`ShopPolicy`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicy), and the subscription policy via [`ShopPolicyWithDefault`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicyWithDefault). [`PaymentSettings`](https://shopify.dev/docs/api/storefront/current/objects/PaymentSettings) expose accepted card brands, supported digital wallets, and enabled presentment currencies. The object also includes the primary [`Domain`](https://shopify.dev/docs/api/storefront/current/objects/Domain), countries the shop ships to, [`ShopPayInstallmentsPricing`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing), and [`SocialLoginProvider`](https://shopify.dev/docs/api/storefront/current/objects/SocialLoginProvider) options for customer accounts.
+"""
+type Shop implements HasMetafields & Node {
+  brand: Brand
+  contactInformation: ShopPolicy
+  customerAccountTranslations: [Translation!]
+  customerAccountUrl: String
+  description: String
+  id: ID!
+  legalNotice: ShopPolicy
+  metafield(namespace: String, key: String!): Metafield
+  metafields(identifiers: [HasMetafieldsIdentifier!]!): [Metafield]!
+  moneyFormat: String!
+  name: String!
+  paymentSettings: PaymentSettings!
+  primaryDomain: Domain!
+  privacyPolicy: ShopPolicy
+  refundPolicy: ShopPolicy
+  shippingPolicy: ShopPolicy
+  shipsToCountries: [CountryCode!]!
+  shopPayInstallmentsPricing: ShopPayInstallmentsPricing
+  socialLoginProviders: [SocialLoginProvider!]!
+  subscriptionPolicy: ShopPolicyWithDefault
+  termsOfSale: ShopPolicy
+  termsOfService: ShopPolicy
+}
+
+"""
+The financing plan in Shop Pay Installments.
+"""
+type ShopPayInstallmentsFinancingPlan implements Node {
+  id: ID!
+  maxPrice: MoneyV2!
+  minPrice: MoneyV2!
+  terms: [ShopPayInstallmentsFinancingPlanTerm!]!
+}
+
+"""
+The terms of the financing plan in Shop Pay Installments.
+"""
+type ShopPayInstallmentsFinancingPlanTerm implements Node {
+  apr: Int!
+  frequency: ShopPayInstallmentsFinancingPlanFrequency!
+  id: ID!
+  installmentsCount: Count
+  loanType: ShopPayInstallmentsLoan!
+}
+
+"""
+The result for a Shop Pay Installments pricing request.
+"""
+type ShopPayInstallmentsPricing {
+  financingPlans: [ShopPayInstallmentsFinancingPlan!]!
+  maxPrice: MoneyV2!
+  minPrice: MoneyV2!
+}
+
+"""
+The shop pay installments pricing information for a product variant.
+"""
+type ShopPayInstallmentsProductVariantPricing implements Node {
+  available: Boolean!
+  eligible: Boolean!
+  fullPrice: MoneyV2!
+  id: ID!
+  installmentsCount: Count
+  pricePerTerm: MoneyV2!
+}
+
+"""
+Represents a Shop Pay payment request.
+"""
+type ShopPayPaymentRequest {
+  deliveryMethods: [ShopPayPaymentRequestDeliveryMethod!]! @deprecated
+  discountCodes: [String!]!
+  discounts: [ShopPayPaymentRequestDiscount!]
+  lineItems: [ShopPayPaymentRequestLineItem!]!
+  locale: String!
+  presentmentCurrency: CurrencyCode!
+  selectedDeliveryMethodType: ShopPayPaymentRequestDeliveryMethodType!
+  shippingAddress: ShopPayPaymentRequestContactField
+  shippingLines: [ShopPayPaymentRequestShippingLine!]!
+  subtotal: MoneyV2!
+  total: MoneyV2!
+  totalShippingPrice: ShopPayPaymentRequestTotalShippingPrice
+  totalTax: MoneyV2
+}
+
+"""
+Represents a contact field for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestContactField {
+  address1: String!
+  address2: String
+  city: String!
+  companyName: String
+  countryCode: String!
+  email: String
+  firstName: String!
+  lastName: String!
+  phone: String
+  postalCode: String
+  provinceCode: String
+}
+
+"""
+Represents a delivery method for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestDeliveryMethod {
+  amount: MoneyV2!
+  code: String!
+  deliveryExpectationLabel: String
+  detail: String
+  label: String!
+  maxDeliveryDate: ISO8601DateTime
+  minDeliveryDate: ISO8601DateTime
+}
+
+"""
+Represents a discount for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestDiscount {
+  amount: MoneyV2!
+  label: String!
+}
+
+"""
+Represents an image for a Shop Pay payment request line item.
+"""
+type ShopPayPaymentRequestImage {
+  alt: String
+  url: String!
+}
+
+"""
+Represents a line item for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestLineItem {
+  finalItemPrice: MoneyV2!
+  finalLinePrice: MoneyV2!
+  image: ShopPayPaymentRequestImage
+  itemDiscounts: [ShopPayPaymentRequestDiscount!]
+  label: String!
+  lineDiscounts: [ShopPayPaymentRequestDiscount!]
+  originalItemPrice: MoneyV2
+  originalLinePrice: MoneyV2
+  quantity: Int!
+  requiresShipping: Boolean
+  sku: String
+}
+
+"""
+Represents a receipt for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestReceipt {
+  paymentRequest: ShopPayPaymentRequest!
+  processingStatusType: String!
+  token: String!
+}
+
+"""
+Represents a Shop Pay payment request session.
+"""
+type ShopPayPaymentRequestSession {
+  checkoutUrl: URL!
+  paymentRequest: ShopPayPaymentRequest!
+  sourceIdentifier: String!
+  token: String!
+}
+
+"""
+Return type for `shopPayPaymentRequestSessionCreate` mutation.
+"""
+type ShopPayPaymentRequestSessionCreatePayload {
+  shopPayPaymentRequestSession: ShopPayPaymentRequestSession
+  userErrors: [UserErrorsShopPayPaymentRequestSessionUserErrors!]!
+}
+
+"""
+Return type for `shopPayPaymentRequestSessionSubmit` mutation.
+"""
+type ShopPayPaymentRequestSessionSubmitPayload {
+  paymentRequestReceipt: ShopPayPaymentRequestReceipt
+  userErrors: [UserErrorsShopPayPaymentRequestSessionUserErrors!]!
+}
+
+"""
+Represents a shipping line for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestShippingLine {
+  amount: MoneyV2!
+  code: String!
+  label: String!
+}
+
+"""
+Represents a shipping total for a Shop Pay payment request.
+"""
+type ShopPayPaymentRequestTotalShippingPrice {
+  discounts: [ShopPayPaymentRequestDiscount!]!
+  finalTotal: MoneyV2!
+  originalTotal: MoneyV2
+}
+
+"""
+Policy that a merchant has configured for their store, such as their refund or privacy policy.
+"""
+type ShopPolicy implements Node {
+  body: String!
+  handle: String!
+  id: ID!
+  title: String!
+  url: URL!
+}
+
+"""
+A policy for the store that comes with a default value, such as a subscription policy.
+If the merchant hasn't configured a policy for their store, then the policy will return the default value.
+Otherwise, the policy will return the merchant-configured value.
+"""
+type ShopPolicyWithDefault {
+  body: String!
+  handle: String!
+  id: ID
+  title: String!
+  url: URL!
+}
+
+"""
+Contains all fields required to generate sitemaps.
+"""
+type Sitemap {
+  pagesCount: Count
+  resources(page: Int!): PaginatedSitemapResources
+}
+
+"""
+Represents a sitemap's image.
+"""
+type SitemapImage {
+  alt: String
+  filepath: String
+  updatedAt: DateTime!
+}
+
+"""
+Represents a sitemap resource that is not a metaobject.
+"""
+type SitemapResource implements SitemapResourceInterface {
+  handle: String!
+  image: SitemapImage
+  title: String
+  updatedAt: DateTime!
+}
+
+"""
+A SitemapResourceMetaobject represents a metaobject with
+[the `renderable` capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages).
+"""
+type SitemapResourceMetaobject implements SitemapResourceInterface {
+  handle: String!
+  onlineStoreUrlHandle: String
+  type: String!
+  updatedAt: DateTime!
+}
+
+"""
+A social login provider for customer accounts.
+"""
+type SocialLoginProvider {
+  handle: String!
+}
+
+"""
+Inventory information for a product variant at a physical store location that offers local pickup. Includes stock availability, quantity on hand, and estimated pickup readiness time. Availability also includes inventory that can be moved to the location through a store transfer route, so a variant can be available for pickup with no on-hand stock at the location.
+
+Local pickup must be [enabled in the store's shipping settings](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup) for this data to be returned. Results can be sorted by proximity to a customer's location using the `near` argument on the [`ProductVariant.storeAvailability`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.storeAvailability) connection. 
+
+Learn more about [supporting local pickup on storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
+"""
+type StoreAvailability {
+  available: Boolean!
+  location: Location!
+  pickUpTime: String!
+  quantityAvailable: Int!
+}
+
+"""
+An auto-generated type for paginating through multiple StoreAvailabilities.
+"""
+type StoreAvailabilityConnection {
+  edges: [StoreAvailabilityEdge!]!
+  nodes: [StoreAvailability!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one StoreAvailability and a cursor during pagination.
+"""
+type StoreAvailabilityEdge {
+  cursor: String!
+  node: StoreAvailability!
+}
+
+"""
+An auto-generated type for paginating through multiple Strings.
+"""
+type StringConnection {
+  edges: [StringEdge!]!
+  nodes: [String!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one String and a cursor during pagination.
+"""
+type StringEdge {
+  cursor: String!
+  node: String!
+}
+
+"""
+An error that occurred during cart submit for completion.
+"""
+type SubmissionError {
+  code: SubmissionErrorCode!
+  message: String
+}
+
+"""
+Cart submit for checkout completion is successful.
+"""
+type SubmitAlreadyAccepted {
+  attemptId: String!
+}
+
+"""
+Cart submit for checkout completion failed.
+"""
+type SubmitFailed {
+  checkoutUrl: URL
+  errors: [SubmissionError!]!
+}
+
+"""
+Cart submit for checkout completion is already accepted.
+"""
+type SubmitSuccess {
+  attemptId: String!
+  redirectUrl: URL!
+}
+
+"""
+Cart submit for checkout completion is throttled.
+"""
+type SubmitThrottled {
+  pollAfter: DateTime!
+}
+
+"""
+A visual representation for filter values, containing a color, an image, or both. The [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue) object's [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch) field returns this when the filter's presentation is set to `SWATCH`.
+"""
+type Swatch {
+  color: Color
+  image: MediaImage
+}
+
+"""
+A category from Shopify's [Standard Product Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17) assigned to a [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product). Categories provide hierarchical classification through the `ancestors` field.
+
+The [`ancestors`](https://shopify.dev/docs/api/storefront/current/objects/TaxonomyCategory#field-TaxonomyCategory.fields.ancestors) field returns the parent chain from the immediate parent up to the root. Each ancestor category also includes its own `ancestors`.
+
+The [`name`](https://shopify.dev/docs/api/storefront/latest/objects/TaxonomyCategory#field-TaxonomyCategory.fields.name) field returns the localized category name based on the storefront's request language with shop locale fallbacks. If a translation isn't available for the resolved locale, the English taxonomy name is returned.
+"""
+type TaxonomyCategory implements Node {
+  ancestors: [TaxonomyCategory!]!
+  id: ID!
+  name: String!
+}
+
+"""
+Translation represents a translation of a key-value pair.
+"""
+type Translation {
+  key: String!
+  value: String!
+}
+
+"""
+The measurement data used to calculate unit prices for a [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant). Unit pricing helps customers compare costs across different package sizes by showing a standardized price, such as "$9.99 / 100ml".
+
+The object includes the quantity being sold (value and unit) and the reference measurement used for price comparison. Use this alongside the variant's [`unitPrice`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.unitPrice) field to display complete unit pricing information.
+"""
+type UnitPriceMeasurement {
+  measuredType: UnitPriceMeasurementMeasuredType
+  quantityUnit: UnitPriceMeasurementMeasuredUnit
+  quantityValue: Float!
+  referenceUnit: UnitPriceMeasurementMeasuredUnit
+  referenceValue: Int!
+}
+
+"""
+A redirect on the online store.
+"""
+type UrlRedirect implements Node {
+  id: ID!
+  path: String!
+  target: String!
+}
+
+"""
+An auto-generated type for paginating through multiple UrlRedirects.
+"""
+type UrlRedirectConnection {
+  edges: [UrlRedirectEdge!]!
+  nodes: [UrlRedirect!]!
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one UrlRedirect and a cursor during pagination.
+"""
+type UrlRedirectEdge {
+  cursor: String!
+  node: UrlRedirect!
+}
+
+"""
+Represents an error in the input of a mutation.
+"""
+type UserError implements DisplayableError {
+  field: [String!]
+  message: String!
+}
+
+"""
+Error codes for failed Shop Pay payment request session mutations.
+"""
+type UserErrorsShopPayPaymentRequestSessionUserErrors implements DisplayableError {
+  code: UserErrorsShopPayPaymentRequestSessionUserErrorsCode
+  field: [String!]
+  message: String!
+}
+
+"""
+A video hosted on Shopify's servers. Implements the [`Media`](https://shopify.dev/docs/api/storefront/current/interfaces/Media) interface and provides multiple video sources through the [`sources`](https://shopify.dev/docs/api/storefront/current/objects/Video#field-Video.fields.sources) field, each with [format](https://shopify.dev/docs/api/storefront/current/objects/Video#field-Video.fields.sources.format), dimensions, and [URL information](https://shopify.dev/docs/api/storefront/current/objects/Video#field-Video.fields.sources.url) for adaptive playback.
+
+For videos hosted on external platforms like YouTube or Vimeo, use [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo) instead.
+"""
+type Video implements Media & Node {
+  alt: String
+  id: ID!
+  mediaContentType: MediaContentType!
+  presentation: MediaPresentation
+  previewImage: Image
+  sources: [VideoSource!]!
+}
+
+"""
+Represents a source for a Shopify hosted video.
+"""
+type VideoSource {
+  format: String!
+  height: Int!
+  mimeType: String!
+  url: String!
+  width: Int!
+}
+
+"""
+Represents `true` or `false` values.
+"""
+scalar Boolean
+
+"""
+A string containing a hexadecimal representation of a color.
+
+For example, "#6A8D48".
+"""
+scalar Color
+
+"""
+Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+represented as `"2019-09-07T15:50:00Z`".
+"""
+scalar DateTime
+
+"""
+A signed decimal number, which supports arbitrary precision and is serialized as a string.
+
+Example values: `"29.99"`, `"29.999"`.
+"""
+scalar Decimal
+
+"""
+Represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+"""
+scalar Float
+
+"""
+A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+complete list of HTML elements.
+
+Example value: `"<p>Grey cotton knit sweater.</p>"`
+"""
+scalar HTML
+
+"""
+Represents a unique identifier, often used to refetch an object.
+The ID type appears in a JSON response as a String, but it is not intended to be human-readable.
+
+Example value: `"gid://shopify/Product/10079785100"`
+"""
+scalar ID
+
+"""
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime
+
+"""
+Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar Int
+
+"""
+A [JSON](https://www.json.org/json-en.html) object.
+
+Example value:
+`{
+  "product": {
+    "id": "gid://shopify/Product/1346443542550",
+    "title": "White T-shirt",
+    "options": [{
+      "name": "Size",
+      "values": ["M", "L"]
+    }]
+  }
+}`
+"""
+scalar JSON
+
+"""
+Represents textual data as UTF-8 character sequences. This type is most often used by GraphQL to represent free-form human-readable text.
+"""
+scalar String
+
+"""
+Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+[RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
+
+For example, `"https://example.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+(`example.myshopify.com`).
+"""
+scalar URL
+
+"""
+An unsigned 64-bit integer. Represents whole numeric values between 0 and 2^64 - 1 encoded as a string of base-10 digits.
+
+Example value: `"50"`.
+"""
+scalar UnsignedInt64
+
+"""
+A delivery address of the buyer that is interacting with the cart.
+"""
+union CartAddress = CartDeliveryAddress
+
+"""
+The completion action to checkout a cart.
+"""
+union CartCompletionAction = CompletePaymentChallenge
+
+"""
+The result of a cart completion attempt.
+"""
+union CartCompletionAttemptResult = CartCompletionActionRequired | CartCompletionFailed | CartCompletionProcessing | CartCompletionSuccess
+
+"""
+The result of cart preparation.
+"""
+union CartPrepareForCompletionResult = CartStatusNotReady | CartStatusReady | CartThrottled
+
+"""
+The result of cart submit completion.
+"""
+union CartSubmitForCompletionResult = SubmitAlreadyAccepted | SubmitFailed | SubmitSuccess | SubmitThrottled
+
+"""
+A delivery address of the buyer that is interacting with the cart.
+"""
+union DeliveryAddress = MailingAddress
+
+"""
+The list of possible resources a `MenuItem` can reference.
+"""
+union MenuItemResource = Article | Blog | Collection | Metaobject | Page | Product | ShopPolicy
+
+"""
+A [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant) that a buyer intends to purchase at checkout.
+"""
+union Merchandise = ProductVariant
+
+"""
+The Shopify resource that owns a metafield. Returned by the `Metafield` object's [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource) field, enabling traversal from a metafield back to the resource it's attached to.
+"""
+union MetafieldParentResource = Article | Blog | Cart | Collection | Company | CompanyLocation | Customer | Location | Market | Order | Page | Product | ProductVariant | SellingPlan | Shop
+
+"""
+The resource that a metafield points to when its type is a resource reference. Metafields can store references to other Shopify resources, and this union provides access to the actual referenced object.
+
+Returned by the `Metafield` object's [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference) field for single references or the [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references) field for lists.
+"""
+union MetafieldReference = Article | Collection | GenericFile | MediaImage | Metaobject | Model3d | Page | Product | ProductVariant | Video
+
+"""
+The price value (fixed or percentage) for a discount application.
+"""
+union PricingValue = MoneyV2 | PricingPercentageValue
+
+"""
+A search result that matches the search query.
+"""
+union SearchResultItem = Article | Page | Product
+
+"""
+The selling plan billing policy.
+"""
+union SellingPlanBillingPolicy = SellingPlanRecurringBillingPolicy
+
+"""
+The portion of the price to be charged at checkout.
+"""
+union SellingPlanCheckoutChargeValue = MoneyV2 | SellingPlanCheckoutChargePercentageValue
+
+"""
+The selling plan delivery policy.
+"""
+union SellingPlanDeliveryPolicy = SellingPlanRecurringDeliveryPolicy
+
+"""
+Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments.
+"""
+union SellingPlanPriceAdjustmentValue = SellingPlanFixedAmountPriceAdjustment | SellingPlanFixedPriceAdjustment | SellingPlanPercentagePriceAdjustment

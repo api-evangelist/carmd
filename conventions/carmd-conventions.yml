@@ -1,0 +1,134 @@
+generated: '2026-08-27'
+method: probed
+source: >-
+  https://carmd.com/llms.txt, https://carmd.com/api/ucp/mcp (initialize + tools/list + error probe),
+  https://carmd.com/api/2026-04/graphql.json, https://carmd.com/policies/refund-policy — all fetched 2026-08-27
+provider: CarMD
+providerId: carmd
+description: >-
+  Cross-cutting runtime semantics for the CarMD surfaces that are actually callable today: the UCP commerce
+  MCP endpoint and the Storefront GraphQL API, both on carmd.com. The CarMD Vehicle API is excluded because
+  its host refused connections and nothing about its conventions could be verified.
+auth_style:
+  mcp: anonymous; every tool call carries meta.ucp-agent.profile (a UCP agent profile URI, not a credential)
+  graphql: anonymous for catalog/content; customer access token or OIDC for customer-scoped fields
+  reference: authentication/carmd-authentication.yml
+idempotency:
+  supported: unknown
+  key_header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key is documented or present in any MCP tool inputSchema, and the Storefront GraphQL API
+    exposes none. Cart and checkout writes are addressed by a server-issued id
+    (gid://shopify/Checkout/...), which makes a retried update idempotent in practice, but the provider
+    states no idempotency contract. No Idempotency pointer is emitted for this provider.
+pagination:
+  style: cursor
+  surface: graphql
+  params: [first, last, after, before]
+  response_fields: [edges, node, cursor, pageInfo.hasNextPage, pageInfo.hasPreviousPage, pageInfo.startCursor, pageInfo.endCursor]
+  note: Relay connection pagination throughout the Storefront schema.
+field_selection:
+  style: graphql-selection-set
+  note: >-
+    GraphQL gives the caller exact field selection. The MCP tools return fixed response envelopes with no
+    sparse-field parameter.
+metadata:
+  supported: true
+  mechanism: 'GraphQL metafields / metaobjects; cart attributes via cartAttributesUpdate and cartNoteUpdate'
+request_tracing:
+  request_id_header: null
+  note: No request-id header is documented. GraphQL responses carry an `extensions.cost` block instead.
+versioning:
+  mcp:
+    scheme: dated protocol versions
+    current: '2026-04-08'
+    also_served: ['2026-01-23']
+    declared_at: https://carmd.com/.well-known/ucp
+    mcp_protocol_version: '2024-11-05'
+  graphql:
+    scheme: dated API version in the path
+    current: '2026-04'
+    path_form: /api/{version}/graphql.json
+    discovery_field: publicApiVersions
+error_envelope:
+  mcp:
+    format: 'JSON-RPC 2.0 error object'
+    shape: '{"jsonrpc":"2.0","id":<n>,"error":{"code":<int>,"message":<string>,"data":{"code":<slug>,"content":<string>,"continue_url":<url>}}}'
+    observed_example:
+      request: '{"jsonrpc":"2.0","id":9,"method":"nope/x"}'
+      http_status: 422
+      code: -32001
+      message: UCP discovery failed
+      data_code: invalid_profile_url
+  graphql:
+    format: 'GraphQL errors array'
+    shape: '{"errors":[{"message":<string>}]}'
+    observed_example:
+      request: 'GET /api/2026-04/graphql.json'
+      http_status: 200
+      message: No query string was present
+  rfc9457: false
+  reference: errors/carmd-problem-types.yml
+rate_limit_signaling:
+  documented_headers: []
+  status_on_exhaustion: 429
+  cost_signal: 'GraphQL responses include extensions.cost.requestedQueryCost'
+  note: >-
+    llms.txt states "The MCP endpoint is rate-limited per IP. Back off on 429 responses." No RateLimit-*
+    or Retry-After header is documented. See rate-limits/carmd-rate-limits.yml.
+money:
+  representation: 'integer minor units paired with an ISO 4217 currency code, e.g. {"amount":2500,"currency":"USD"} = $25.00'
+  source: MCP tool descriptions in mcp/carmd-ucp-tools-list.json
+reversibility:
+  applicable: true
+  grade: verified
+  note: >-
+    The write surface is commerce. Every write stage has an explicit reversal operation, and the money-side
+    reversal carries a stated window in CarMD's own published refund policy.
+  surfaces:
+    - surface: cart
+      write_operation: create_cart / update_cart
+      reversal_operation: cancel_cart
+      operation_id: cancel_cart
+      window: 'before checkout submission — no time limit stated'
+      window_stated: false
+      docs: https://carmd.com/llms.txt
+      grade: documented
+    - surface: checkout
+      write_operation: create_checkout / update_checkout
+      reversal_operation: cancel_checkout
+      operation_id: cancel_checkout
+      window: 'before complete_checkout — a completed checkout cannot be cancelled through this tool'
+      window_stated: false
+      docs: https://carmd.com/llms.txt
+      grade: documented
+    - surface: order / payment
+      write_operation: complete_checkout
+      reversal_operation: return and refund (human process, no API operation)
+      operation_id: null
+      window: 'within 30 days from the order delivery date'
+      window_stated: true
+      docs: https://carmd.com/policies/refund-policy
+      grade: verified
+      note: >-
+        Quoted from the provider's published refund policy: returns accepted "within 30 days from the order
+        delivery date", product must be in new or unused condition with all original inserts and
+        accessories; shipping and handling charges are excluded; refunds take up to 10 business days to
+        appear after inspection and approval. There is no programmatic refund operation on the MCP or
+        GraphQL surface — reversal after payment is a human process.
+dry_run_mode:
+  supported: false
+  note: >-
+    No dry-run, preview or simulate parameter exists on any MCP tool or GraphQL mutation.
+    cartPrepareForCompletion is a preparation step, not a rehearsal.
+cross_links:
+  errors: errors/carmd-problem-types.yml
+  lifecycle: lifecycle/carmd-lifecycle.yml
+  authentication: authentication/carmd-authentication.yml
+  rate_limits: rate-limits/carmd-rate-limits.yml
+  scopes: scopes/carmd-scopes.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

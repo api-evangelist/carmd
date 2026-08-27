@@ -1,0 +1,68 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org/pypi/<pkg>/json, github.com search, and the carmd.com site
+  (footer "Services: CarMD API") — probed 2026-08-27
+provider: CarMD
+providerId: carmd
+description: >-
+  CarMD publishes no first-party client libraries in any package registry. Searches of npm, PyPI, and the
+  provider's own site returned no official SDK. The only client libraries that exist for the CarMD Vehicle
+  API are community-maintained wrappers, all of them stale — the most recent published release is from
+  2020. Registry probes: PyPI `carmd` 404; npm search for "carmd" returned two unrelated/third-party
+  packages. Because nothing here is first-party, no `SDKs` pointer is emitted in apis.yml.
+official_package_count: 0
+packages:
+  - name: python-carmd
+    registry: pypi
+    url: https://pypi.org/project/python-carmd/
+    language: Python
+    official: false
+    maintainer: irahorecka
+    repository: https://github.com/irahorecka/python-carmd
+    version: 0.2.0
+    published: '2020-03-27'
+    description: A simple CarMD API wrapper.
+    note: >-
+      Community wrapper. Last release 2020-03-27 — more than six years before this probe, and predating
+      the CarScan v3 API generation the provider's docs described.
+  - name: pycarmd
+    registry: github
+    url: https://github.com/zbarge/pycarmd
+    language: Python
+    official: false
+    maintainer: zbarge
+    repository: https://github.com/zbarge/pycarmd
+    version: null
+    published: null
+    note: >-
+      Community wrapper distributed only as a GitHub repository — no package-registry entry exists, so
+      there is no metadata endpoint to read a version or release date from.
+  - name: '@pipedream/carmd'
+    registry: npm
+    url: https://www.npmjs.com/package/@pipedream/carmd
+    language: JavaScript
+    official: false
+    maintainer: PipedreamHQ
+    version: 0.0.1
+    published: '2024-03-14'
+    description: Pipedream CarMD Components
+    note: >-
+      Integration-platform component published by Pipedream, not by CarMD. The component source
+      (components/carmd/carmd.app.mjs) is an empty app shell with no propDefinitions and no actions.
+registries_checked:
+  - registry: npm
+    query: carmd
+    result: no first-party package
+  - registry: pypi
+    query: carmd
+    result: 404
+  - registry: pypi
+    query: python-carmd
+    result: third-party, 0.2.0 (2020-03-27)
+  - registry: rubygems
+    query: carmd
+    result: not checked — no evidence of a Ruby client anywhere in the provider's surface
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,50 @@
+generated: '2026-08-27'
+method: probed
+source: https://carmd.com/.well-known/openid-configuration
+provider: CarMD
+providerId: carmd
+description: >-
+  OAuth 2.0 / OpenID Connect scopes CarMD's domain advertises. These come from the customer-accounts
+  authorization server discovery document served at carmd.com/.well-known/openid-configuration (identical
+  body is served at /.well-known/oauth-authorization-server). The authorization server is Shopify's
+  customer-accounts issuer for CarMD's store (issuer https://shopify.com/authentication/93440671876); the
+  scopes govern shopper identity and the customer-account APIs for the CarMD storefront. The CarMD Vehicle
+  API on api.carmd.com does not use OAuth — and could not be probed at all, because that host refused
+  connections.
+authorization_server:
+  issuer: https://shopify.com/authentication/93440671876
+  authorization_endpoint: https://shopify.com/authentication/93440671876/oauth/authorize
+  token_endpoint: https://shopify.com/authentication/93440671876/oauth/token
+  jwks_uri: https://shopify.com/authentication/93440671876/.well-known/jwks.json
+  end_session_endpoint: https://shopify.com/authentication/93440671876/logout
+  grant_types_supported:
+    - authorization_code
+    - refresh_token
+    - 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+  response_types_supported:
+    - code
+  code_challenge_methods_supported:
+    - S256
+  token_endpoint_auth_methods_supported:
+    - client_secret_basic
+    - client_secret_post
+  id_token_signing_alg_values_supported:
+    - RS256
+scope_count: 4
+scopes:
+  - name: openid
+    description: Standard OpenID Connect scope; requests an ID token identifying the shopper.
+  - name: email
+    description: Releases the shopper's email address and email_verified claim.
+  - name: 'customer-account-api:full'
+    description: Full access to the customer-account API for the authenticated shopper.
+  - name: 'customer-account-mcp-api:full'
+    description: >-
+      Full access to the customer-account MCP API for the authenticated shopper — the authenticated
+      counterpart to the anonymous UCP commerce MCP endpoint at https://carmd.com/api/ucp/mcp.
+claims_supported: [iss, sub, aud, exp, iat, nonce, sid, email, email_verified]
+docs: null
+docs_note: CarMD publishes no scope reference page of its own; the scope list is machine-read from its discovery document.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

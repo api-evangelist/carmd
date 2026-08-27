@@ -1,0 +1,127 @@
+generated: '2026-08-27'
+method: derived
+source: graphql/carmd-storefront.graphql (introspected live from https://carmd.com/api/2026-04/graphql.json on 2026-08-27)
+provider: CarMD
+providerId: carmd
+description: >-
+  Entity-relationship graph for the CarMD commerce data model, derived mechanically from the Storefront
+  GraphQL schema CarMD serves on its own domain — 424 named types, 262 objects, 34 query roots and 41
+  mutations. Relationships below were read from field return types (Relay `*Connection` types resolved to
+  their node type). This is the commerce core behind CarMD Connect hardware sales and the UCP MCP tools;
+  it is NOT a model of the CarMD Vehicle API, which publishes no reachable contract.
+identifiers:
+  scheme: 'Shopify global ID (GID) URI'
+  form: 'gid://shopify/<Type>/<numeric-id>'
+  examples:
+    - 'gid://shopify/Checkout/abc123'
+  note: Every MCP tool that takes an id documents the GID form in its inputSchema description.
+entities:
+  - name: Shop
+    root_field: shop
+    description: The CarMD store itself. Anonymous query returns name "CarMD", primaryDomain https://carmd.com.
+    relationships: []
+  - name: Product
+    root_field: product / productByHandle / products
+    relationships:
+      - to: ProductVariant
+        kind: has_many
+        via: variants
+      - to: ProductVariant
+        kind: has_one
+        via: selectedOrFirstAvailableVariant
+      - to: Collection
+        kind: has_many
+        via: collections
+      - to: Image
+        kind: has_many
+        via: images
+      - to: Media
+        kind: has_many
+        via: media
+      - to: SellingPlanGroup
+        kind: has_many
+        via: sellingPlanGroups
+  - name: ProductVariant
+    relationships:
+      - to: Product
+        kind: belongs_to
+        via: product
+      - to: ProductVariantComponent
+        kind: has_many
+        via: components
+      - to: QuantityPriceBreak
+        kind: has_many
+        via: quantityPriceBreaks
+      - to: SellingPlanAllocation
+        kind: has_many
+        via: sellingPlanAllocations
+      - to: StoreAvailability
+        kind: has_many
+        via: storeAvailability
+  - name: Collection
+    root_field: collection / collectionByHandle / collections
+    relationships:
+      - to: Product
+        kind: has_many
+        via: products
+  - name: Cart
+    root_field: cart
+    relationships:
+      - to: BaseCartLine
+        kind: has_many
+        via: lines
+      - to: CartDeliveryGroup
+        kind: has_many
+        via: deliveryGroups
+  - name: Order
+    relationships:
+      - to: OrderLineItem
+        kind: has_many
+        via: lineItems
+      - to: DiscountApplication
+        kind: has_many
+        via: discountApplications
+  - name: Customer
+    root_field: customer
+    access: requires a customer access token
+    relationships:
+      - to: Order
+        kind: has_many
+        via: orders
+      - to: MailingAddress
+        kind: has_many
+        via: addresses
+  - name: Blog
+    root_field: blog / blogByHandle / blogs
+    relationships:
+      - to: Article
+        kind: has_many
+        via: articles
+  - name: Article
+    root_field: article / articles
+    relationships:
+      - to: Blog
+        kind: belongs_to
+        via: blog
+      - to: Comment
+        kind: has_many
+        via: comments
+  - name: Page
+    root_field: page / pageByHandle / pages
+    relationships: []
+  - name: Metaobject
+    root_field: metaobject / metaobjects
+    relationships: []
+    note: Custom content objects defined by the merchant.
+  - name: Location
+    root_field: locations
+    relationships: []
+counts:
+  named_types: 424
+  objects: 262
+  query_fields: 34
+  mutations: 41
+render: null
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

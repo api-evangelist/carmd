@@ -1,0 +1,122 @@
+generated: '2026-08-27'
+method: probed
+source: >-
+  https://carmd.com/.well-known/ucp, https://carmd.com/.well-known/openid-configuration,
+  https://carmd.com/api/ucp/mcp, https://carmd.com/api/2026-04/graphql.json, https://carmd.com/llms.txt
+  — all fetched 2026-08-27
+provider: CarMD
+providerId: carmd
+description: >-
+  Standards conformance asserted from what CarMD's own hosts actually served, not from marketing claims.
+  Every `conforms: true` below is backed by a document or a live response captured in this repo.
+entries:
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: >-
+      https://carmd.com/.well-known/oauth-authorization-server returns RFC 8414 authorization-server
+      metadata with authorization_endpoint, token_endpoint, grant_types_supported and
+      code_challenge_methods_supported [S256]. Saved as well-known/carmd-oauth-authorization-server.json.
+  - id: oidc
+    name: OpenID Connect Discovery 1.0
+    conforms: true
+    evidence: >-
+      https://carmd.com/.well-known/openid-configuration returns issuer, jwks_uri, id_token signing algs
+      [RS256], subject_types_supported and claims_supported. Saved as
+      well-known/carmd-openid-configuration.json.
+  - id: rfc8414
+    name: 'RFC 8414 — OAuth 2.0 Authorization Server Metadata'
+    conforms: true
+    evidence: The /.well-known/oauth-authorization-server alias is served and is byte-identical to the OIDC document.
+  - id: rfc7636
+    name: 'RFC 7636 — PKCE'
+    conforms: true
+    evidence: 'code_challenge_methods_supported: ["S256"] in the discovery document.'
+  - id: jsonrpc2
+    name: 'JSON-RPC 2.0'
+    conforms: true
+    evidence: >-
+      https://carmd.com/api/ucp/mcp returns {"jsonrpc":"2.0","id":...,"result":...} on success and a
+      conforming error object ({"code":-32001,...}) on failure.
+  - id: mcp
+    name: 'Model Context Protocol'
+    conforms: true
+    version: '2024-11-05'
+    evidence: >-
+      initialize returned protocolVersion "2024-11-05" with serverInfo {"name":"universal-commerce",
+      "version":"0.1.0"} and tools/prompts/resources/logging capabilities; tools/list returned 13 tools with
+      inputSchema. Saved as mcp/carmd-ucp-tools-list.json.
+  - id: json-schema-2020-12
+    name: 'JSON Schema draft 2020-12'
+    conforms: true
+    evidence: >-
+      Every MCP tool inputSchema declares
+      "$schema":"https://json-schema.org/draft/2020-12/schema".
+  - id: graphql
+    name: GraphQL (June 2018 spec)
+    conforms: true
+    evidence: >-
+      https://carmd.com/api/2026-04/graphql.json answered a full introspection query with a 424-type
+      schema, including __schema/__type meta-fields. SDL saved as graphql/carmd-storefront.graphql.
+  - id: relay-connections
+    name: 'Relay Cursor Connections'
+    conforms: true
+    evidence: The Storefront schema uses edges/node/cursor/pageInfo connection types throughout.
+  - id: iso4217
+    name: 'ISO 4217 currency codes'
+    conforms: true
+    evidence: MCP tool descriptions specify integer minor units paired with an ISO 4217 currency code.
+  - id: rfc9457
+    name: 'RFC 9457 — Problem Details for HTTP APIs'
+    conforms: false
+    evidence: >-
+      No application/problem+json response was observed on any surface; errors are JSON-RPC error objects
+      or a GraphQL errors array.
+  - id: rfc9116
+    name: 'RFC 9116 — security.txt'
+    conforms: false
+    evidence: /.well-known/security.txt returned 404 on carmd.com, proscan.carmd.com and app.carmd.com.
+  - id: a2a
+    name: 'A2A Agent Card'
+    conforms: false
+    evidence: /.well-known/agent-card.json and /.well-known/agent.json returned 404 on every CarMD host probed.
+  - id: openapi
+    name: OpenAPI
+    conforms: false
+    evidence: >-
+      No OpenAPI document was found on any host. api.carmd.com refused TCP connections; carmd.com returned
+      404 for /openapi.json, /api/openapi.json and /swagger.json.
+domain_standards:
+  - id: ucp
+    name: 'Universal Commerce Protocol (UCP)'
+    market: agentic commerce
+    conforms: true
+    version: '2026-04-08'
+    also_served: ['2026-01-23']
+    signature: >-
+      https://carmd.com/.well-known/ucp declares ucp.version "2026-04-08" and the capability URNs
+      dev.ucp.shopping.checkout, dev.ucp.shopping.cart, dev.ucp.shopping.order,
+      dev.ucp.shopping.catalog.search and dev.ucp.shopping.catalog.lookup, each bound to a published
+      ucp.dev schema, plus a dev.ucp.shopping service with transport "mcp" and a live endpoint. Saved as
+      well-known/carmd-ucp.json.
+    spec: https://ucp.dev
+    note: >-
+      This is a contract-level declaration, not a prose claim: the capability URNs and schema URLs are read
+      straight from the provider's own discovery document, and the MCP endpoint they name answers.
+  - id: obd-ii
+    name: 'OBD-II diagnostic trouble codes (SAE J2012 / ISO 15031-6)'
+    market: automotive diagnostics
+    conforms: unverified
+    signature: null
+    note: >-
+      CarMD's Vehicle API is built on OBD-II trouble codes and would be the natural place for this domain
+      standard to appear in a contract. It could not be checked: api.carmd.com refused connections and
+      publishes no machine-readable contract that this run could reach. Recorded as unverified rather than
+      false — no penalty is implied.
+certifications: []
+certifications_note: >-
+  No trust center, SOC 2, ISO 27001, PCI DSS or HIPAA claim was found on any CarMD property.
+  probe-security-programs.py returned vdp=none trust=none. No Compliance pointer is emitted.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

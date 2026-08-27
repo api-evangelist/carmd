@@ -1,0 +1,27 @@
+generated: '2026-08-27'
+method: generated
+source: mcp/carmd-ucp-tools-list.json (live tools/list, 2026-08-27) + https://carmd.com/llms.txt + https://carmd.com/policies/refund-policy
+provider: CarMD
+providerId: carmd
+description: >-
+  Packaged Agent Skills for CarMD. Only one flow is skillable today: agentic purchase against the live UCP
+  commerce MCP endpoint. No skill is written for the CarMD Vehicle API because that API publishes no
+  reachable contract to ground operations in — writing one would mean inventing operation names.
+skills:
+  - name: carmd-agentic-purchase
+    file: skills/carmd-agentic-purchase.md
+    api: CarMD Universal Commerce (UCP) MCP Server
+    surface: https://carmd.com/api/ucp/mcp
+    operations: 13
+    summary: >-
+      Search the CarMD catalog, build a cart, open and fund a checkout under an explicit human-approval
+      gate, and know exactly how far each stage can be reversed.
+    grounded_in: mcp/carmd-ucp-tools-list.json
+not_written:
+  - api: CarMD Vehicle API (CarScan)
+    reason: >-
+      No OpenAPI or other machine-readable contract is published, and api.carmd.com refused TCP connections
+      on 80 and 443 at probe time, so no operation names could be verified.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

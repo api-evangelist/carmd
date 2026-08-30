@@ -2,23 +2,17 @@
 kin_checks:
   slug: carmd
   schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  scored_at: '2026-08-28'
+  run_ts: 2026-08-28T221322
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 20
-    partial: 8
-    missed: 63
+    earned: 32
+    partial: 6
+    missed: 53
     na: 39
   checks:
-  - id: tags_present
-    status: missed
-  - id: multiple_apis
-    status: missed
-  - id: base_url_per_api
-    status: missed
   - id: apis_json_self_hosted
     status: missed
   - id: servers_resolvable
@@ -57,6 +51,8 @@ kin_checks:
     status: missed
   - id: status_page_present
     status: missed
+  - id: rate_limits_rich
+    status: missed
   - id: deprecation_policy
     status: missed
   - id: security_disclosure
@@ -75,8 +71,6 @@ kin_checks:
     status: missed
   - id: getting_started_present
     status: missed
-  - id: authentication_documented
-    status: missed
   - id: sdk_count_1
     status: missed
   - id: sdk_count_3
@@ -87,31 +81,21 @@ kin_checks:
     status: missed
   - id: postman_present
     status: missed
-  - id: agent_skill_present
+  - id: plans_present
     status: missed
-  - id: support_channel
-    status: missed
-  - id: blog_present
+  - id: plans_multiple
     status: missed
   - id: pricing_link
     status: missed
   - id: sign_up_present
     status: missed
-  - id: terms_of_service
-    status: missed
   - id: compliance_published
     status: missed
   - id: trust_center
     status: missed
-  - id: reg_oauth_scopes
-    status: missed
   - id: reg_vulnerability_disclosure
     status: missed
-  - id: reg_terms_of_service
-    status: missed
   - id: reg_compliance_published
-    status: missed
-  - id: reg_standards_conformance
     status: missed
   - id: agentic_access
     status: missed
@@ -119,13 +103,9 @@ kin_checks:
     status: missed
   - id: idempotency
     status: missed
-  - id: error_semantics
-    status: missed
   - id: openapi_examples
     status: missed
   - id: event_surface_described
-    status: missed
-  - id: agent_skills
     status: missed
   - id: well_known_catalog
     status: missed
@@ -142,15 +122,6 @@ kin_checks:
   - id: rate_limits_documented
     status: partial
     earned: 2.0
-  - id: rate_limits_rich
-    status: partial
-    earned: 1.0
-  - id: plans_present
-    status: partial
-    earned: 2.0
-  - id: plans_multiple
-    status: partial
-    earned: 1.0
   - id: mcp_server
     status: partial
     earned: 4.8
@@ -159,6 +130,10 @@ kin_checks:
     status: partial
     earned: 9.0
     detail: 'grade: served'
+  - id: error_semantics
+    status: partial
+    earned: 4.0
+    detail: 'grade: documented'
   - id: rate_limit_signal
     status: partial
     earned: 3.5

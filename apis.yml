@@ -40,7 +40,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/carmd.png
 access: 3rd-Party
 created: '2024-03-30'
 modified: '2026-08-27'
-position: Consumer
+position: Consuming
 description: >-
   CarMD specializes in automotive diagnostics and insights, selling the CarMD Connect vehicle-health
   device and publishing the CarMD Vehicle Health Index. Its developer story has two very different

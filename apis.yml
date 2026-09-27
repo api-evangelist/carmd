@@ -5,13 +5,13 @@ name: CarMD
 tags:
   - Automobiles
   - Cars
-  - Diagnostics
   - Vehicles
   - Automotive
   - OBD-II
   - Agentic Commerce
   - MCP
   - E-Commerce
+  - Vehicle Diagnostics
 type: Index
 deliveryModel:
   model: saas
@@ -92,6 +92,9 @@ apis:
       create/update/complete/cancel, and order read — each with a JSON Schema 2020-12 inputSchema.
       Checkout completion requires contemporaneous human buyer approval. The server software is the
       Shopify platform UCP implementation; the endpoint, merchant identity and catalog are CarMD's.
+    x-surface: platform-generated
+    x-platform: shopify
+    x-platform-surface: ucp
   - aid: carmd:carmd-storefront-graphql
     name: CarMD Storefront GraphQL API
     tags:
@@ -111,6 +114,9 @@ apis:
       https://carmd.com — confirming the endpoint belongs to this company. Catalog and content reads
       are open; customer-scoped fields require a customer access token or the OIDC flow at
       carmd.com/.well-known/openid-configuration.
+    x-surface: platform-generated
+    x-platform: shopify
+    x-platform-surface: storefront-graphql
 common:
   - type: Website
     url: https://carmd.com/

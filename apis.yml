@@ -118,6 +118,8 @@ apis:
     x-platform: shopify
     x-platform-surface: storefront-graphql
 common:
+  - type: FinOps
+    url: finops/carmd-finops.yml
   - type: Website
     url: https://carmd.com/
   - type: Blog

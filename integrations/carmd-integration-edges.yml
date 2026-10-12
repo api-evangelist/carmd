@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/carmd/integrations
+- https://n8n.io/integrations/carmd/
+- https://composio.dev/toolkits/carmd
+- https://monid.ai/tools/carmd
+checked:
+- https://composio.dev/toolkits/carmd
+- https://monid.ai/tools/carmd
+- https://n8n.io/integrations/carmd/
+- https://zapier.com/apps/carmd/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

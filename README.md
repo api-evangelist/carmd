@@ -1,4 +1,4 @@
-# CarMD (carmd)
+# CarMD
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,51 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-CarMD specializes in automotive diagnostics and insights. The CarMD vehicle API is a user-centric and affordable way to access API services for your vehicle. The vehicle data API provides a wide range of services, from displaying code definitions and vehicle images to predicting upcoming issues.
+CarMD specializes in automotive diagnostics and insights, selling the CarMD Connect vehicle-health device and publishing the CarMD Vehicle Health Index. Its developer story has two very different halves today. The historic CarMD Vehicle API (CarScan) — code definitions, vehicle images, repair and upcoming-issue prediction — is documented at api.carmd.com and still linked from the carmd.com footer, but that host refused TCP connections on ports 80 and 443 when probed on 2026-08-27, and the old carmd.com/api pricing page now returns 404. Meanwhile the rebuilt carmd.com storefront serves a live, anonymous agent surface: an llms.txt, a Universal Commerce Protocol merchant profile, a working MCP endpoint with thirteen commerce tools, and an anonymously introspectable Storefront GraphQL API.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/carmd/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/carmd/refs/heads/main/apis.yml)
+**Areas:** Automobiles · Cars · Vehicles · Automotive · OBD-II · Agentic Commerce · MCP · E-Commerce · Vehicle Diagnostics
 
-## Scope
+## CarMD on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for CarMD is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/carmd/](https://apis.io/providers/carmd/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (3)
 
-- Automobiles
-- Cars
-- Diagnostics
-- Vehicles
+- [CarMD Vehicle API](https://apis.io/apis/carmd/carmd/) — CarMD's vehicle API (marketed as CarScan) provides access to OBD-II code definitions, vehicle images, repair information and predicted upcoming issues.…
+- [CarMD Agentic Commerce API (UCP MCP)](https://apis.io/apis/carmd/carmd-agentic-commerce/) — Live Model Context Protocol endpoint on CarMD's own domain, implementing the Universal Commerce Protocol (version 2026-04-08, with 2026-01-23 still served).…
+- [CarMD Storefront GraphQL API](https://apis.io/apis/carmd/carmd-storefront-graphql/) — The Shopify-provided Storefront GraphQL API served on carmd.com, version 2026-04. Anonymous introspection on 2026-08-27 returned a 424-type schema (262…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-03-30
-- **Modified:** 2026-03-16
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### CarMD Vehicle API
+Model Context Protocol servers that expose the API to agents.
 
-CarMD's vehicle API provides access to code definitions, vehicle images, and diagnostics for predicting upcoming vehicle issues.
+- [CarMD Universal Commerce (UCP) MCP Server](https://apis.io/servers/carmd/carmd-universal-commerce-ucp-mcp-server/)
 
-- **Human URL:** [https://www.carmd.com/](https://www.carmd.com/)
+#### Collections (1)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Automobiles
-- Diagnostics
+- [API Collection](https://apis.io/collections/carmd/open-carmd/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://www.carmd.com/)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Carmd Authentication](https://apis.io/security/carmd/carmd-authentication/)
+- [Carmd Domain Security](https://apis.io/security/carmd/carmd-domain-security/)
 
-- [Website](https://www.carmd.com/)
-- [Privacy Policy](https://www.carmd.com/privacy-policy)
+#### OAuth scopes (1)
 
-## Maintainers
+The permissions the API asks for.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+- [Carmd Scopes](https://apis.io/scopes/carmd/carmd-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Carmd Plans Pricing](https://apis.io/plans/carmd/carmd-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Carmd Rate Limits](https://apis.io/rate-limits/carmd/carmd-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Carmd Finops](https://apis.io/finops/carmd/carmd-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://carmd.com/)
+- [Support](https://carmd.com/pages/contact)
+- [Blog](https://carmd.com/pages/blog-homepage)
+- [Terms of service](https://carmd.com/pages/terms-of-service)
+- [Privacy policy](https://carmd.com/pages/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 26.5** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 10.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 33.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/carmd/](https://apis.io/providers/carmd/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CarMD: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/carmd/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
